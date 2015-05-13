@@ -108,19 +108,18 @@ var columns = 20;
 	};
 
 //LETTERS DB 
-var F = {
-	DrawLine(StraightLine('ver', 2, 10, 5));
-	DrawLine(StraightLine('ver', 2, 10, 4));
-}
-
-
-
-
-
+var F = [ 
+	DrawLine(StraightLine('ver', 2, 10, 5)),
+	DrawLine(StraightLine('ver', 2, 10, 4)),
+	DrawLine(StraightLine('hor', 3, 10, 15))
+	]
 
 // --OUTPUT -- //
-
-
+function DrawLetter(letter) {
+	for(i = 0; i < letter.length; i++)  {
+		return letter[i]
+	};
+};
 
 
 
