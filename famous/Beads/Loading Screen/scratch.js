@@ -120,49 +120,24 @@ var columns = 20;
 		};
 	};
 
-//LETTERS DB 
-	var F = [
-		DrawLine(StraightLine2("hor", [0, 0], 6)),
-		DrawLine(StraightLine2("hor", [1, 0], 6)),
-
-		DrawLine(StraightLine2("hor", [4, 0], 6)),
-		DrawLine(StraightLine2("hor", [5, 0], 6)),
-
-		DrawLine(StraightLine2("ver", [0, 0], 10)),
-		DrawLine(StraightLine2("ver", [0, 1], 10)),
-	]
-
-	var A = [
-		DrawLine(StraightLine2("hor", [0, 0], 6)),
-		DrawLine(StraightLine2("hor", [1, 0], 6)),
-
-		DrawLine(StraightLine2("hor", [4, 0], 6)),
-		DrawLine(StraightLine2("hor", [5, 0], 6)),
-
-		DrawLine(StraightLine2("ver", [0, 0], 10)),
-		DrawLine(StraightLine2("ver", [0, 1], 10)),
-
-		DrawLine(StraightLine2("ver", [0, 4], 10)),
-		DrawLine(StraightLine2("ver", [0, 5], 10)),
-	]
-
-//BORDER
-
 // --OUTPUT -- //
-	function DrawLetter(letter) {
-		for(i = 0; i < letter.length; i++)  {
-			return letter[i]
+	function Draw(border) {
+		for(i = 0; i < border.length; i++) {
+			// console.log(thing[i])
+			DrawLine(border[i]);
 		};
 	};
 
-	// DrawLetter(A);
 
+//BORDER
+	var Border1 = [
+		StraightLine2("ver", [0, columns - 1], columns),
+		StraightLine2("ver", [0, 0], columns),
+		StraightLine2("hor", [0, 0], rows),
+		StraightLine2("hor", [rows - 1, 0], rows),
+	]
 
-
-
-
-
-
+	Draw(Border1)
 
 
 
