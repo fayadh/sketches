@@ -81,14 +81,18 @@ var columns = 20;
 		}
 	};
 //STRAIGHT LINE FUNCTION 2
+
+// starting point[0] == '3'
+// starting point[1] == '5'
+
 	function StraightLine2(mode, startingPoint, length) {
 		array = [];
 		for(var i = 0; i < length; i++) {
 			if(mode === "hor") {
-				array.push([ startingPoint[0], i]);
+				array.push([ startingPoint[0], startingPoint[1] + i]);
 			}
 			else if(mode === "ver") {
-				array.push([ i, startingPoint[1] ]);
+				array.push([ startingPoint[0] + i, startingPoint[1] ]);
 			}
 		};
 		return array;
@@ -128,24 +132,119 @@ var columns = 20;
 		};
 	};
 
+//IMAGE DB
+	//BORDER
+		var Border1 = [
+			StraightLine2("ver", [0, columns - 1], columns),
+			StraightLine2("ver", [0, 0], columns),
+			StraightLine2("hor", [0, 0], rows),
+			StraightLine2("hor", [rows - 1, 0], rows),
+		]
 
-//BORDER
-	var Border1 = [
-		StraightLine2("ver", [0, columns - 1], columns),
-		StraightLine2("ver", [0, 0], columns),
-		StraightLine2("hor", [0, 0], rows),
-		StraightLine2("hor", [rows - 1, 0], rows),
-	]
+	//LETTERS DB
+		var A = [
+			StraightLine2("hor", [0, 0], 6),
+			StraightLine2("hor", [1, 0], 6),
 
-	Draw(Border1)
+			StraightLine2("hor", [4, 0], 6),
+			StraightLine2("hor", [5, 0], 6),
+
+			StraightLine2("ver", [0, 0], 10),
+			StraightLine2("ver", [0, 1], 10),
+
+			StraightLine2("ver", [0, 4], 10),
+			StraightLine2("ver", [0, 5], 10),
+		]
+
+		var B = [
+			StraightLine2("hor", [0, 0], 6),
+			StraightLine2("hor", [1, 0], 6),
+
+			StraightLine2("hor", [4, 0], 6),
+			StraightLine2("hor", [5, 0], 6),
+
+			StraightLine2("hor", [8, 0], 6),
+			StraightLine2("hor", [9, 0], 6),
+
+			StraightLine2("ver", [0, 1], 10),
+			StraightLine2("ver", [0, 4], 10),
+			StraightLine2("ver", [0, 5], 10),
+		]
+
+		var C = [
+			StraightLine2("hor", [0, 0], 6),
+			StraightLine2("hor", [1, 0], 6),
+
+			StraightLine2("hor", [8, 0], 6),
+			StraightLine2("hor", [9, 0], 6),
+
+			StraightLine2("ver", [0, 0], 10),
+			StraightLine2("ver", [0, 1], 10),
+		]
+
+		var D = [
+			StraightLine2("hor", [0, 0], 6),
+			StraightLine2("hor", [1, 0], 6),
 
 
+			StraightLine2("hor", [8, 0], 6),
+			StraightLine2("hor", [9, 0], 6),
 
+			StraightLine2("ver", [0, 1], 10),
+			StraightLine2("ver", [0, 4], 10),
+			StraightLine2("ver", [0, 5], 10),
+		]
 
+		var E = [
+			StraightLine2("hor", [0, 0], 6),
+			StraightLine2("hor", [1, 0], 6),
 
+			StraightLine2("hor", [4, 0], 6),
+			StraightLine2("hor", [5, 0], 6),
 
+			StraightLine2("hor", [8, 0], 6),
+			StraightLine2("hor", [9, 0], 6),
 
+			StraightLine2("ver", [0, 0], 10),
+			StraightLine2("ver", [0, 1], 10),
+		]
 
+		var F = [
+			StraightLine2("hor", [0, 0], 6),
+			StraightLine2("hor", [1, 0], 6),
+
+			StraightLine2("hor", [4, 0], 6),
+			StraightLine2("hor", [5, 0], 6),
+
+			StraightLine2("ver", [0, 0], 10),
+			StraightLine2("ver", [0, 1], 10),
+		]
+
+		var G = [
+			StraightLine2("hor", [0, 0], 6),
+			StraightLine2("hor", [1, 0], 6),
+
+			StraightLine2("hor", [4, 3], 3),
+			StraightLine2("hor", [5, 3], 3),
+
+			StraightLine2("hor", [8, 0], 6),
+			StraightLine2("hor", [9, 0], 6),
+
+			StraightLine2("ver", [0, 0], 10),
+			StraightLine2("ver", [0, 1], 10),
+
+			StraightLine2("ver", [4, 4], 4),
+			StraightLine2("ver", [4, 5], 4),
+		]
+
+	Draw(G);
+
+// AGENDA 
+// Draw all letters
+// space them out 
+// GO GET MIDI CONTROLLER FOR JOSH
+
+// MARKUS SHULZ 1:41:00
 
 
 
