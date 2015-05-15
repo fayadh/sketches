@@ -19,7 +19,11 @@ var spacing = 2;
 		}
 
 var rows = 20;
-var columns = 20;
+var columns = 40;
+
+backgroundSurface = new Surface({properties: { backgroundColor: 'black' }, size: [,]});
+mainContext.add(backgroundSurface);
+
 
 //MATRIX
 	for(j = 0; j < rows; j++) { 
@@ -38,14 +42,14 @@ var columns = 20;
 				})
 			//MODIFIER
 				var beadmodifier = new Modifier({
-					align: [1/4, 0.01],
+					align: [0.01, 0.01],
 					transform: Transform.translate( i* (beadResolution * spacing), row) 
 				});
 
 				Bead.on('mouseover', function() {
 					this.setProperties({
-						backgroundColor: 'black',
-						boxShadow: '5px 5px 5px pink'
+						backgroundColor: 'white',
+						boxShadow: '5px 5px 5px white'
 					});
 				});
 
@@ -114,17 +118,17 @@ var columns = 20;
 		for(var j = 0; j < length; j++) {
 			point = line[j];
 			beadCollector[ point[0] ][ point[1] ].setProperties({
-				backgroundColor: 'blue',
-				boxShadow: '10px 5px 5px red'
+				backgroundColor: 'white',
+				boxShadow: '10px 5px 5px green'
 			});
 		};
 	};
 
 // --OUTPUT -- //
-	function Draw(border) {
-		for(i = 0; i < border.length; i++) {
+	function Draw(thing) {
+		for(i = 0; i < thing.length; i++) {
 			// console.log(thing[i])
-			DrawLine(border[i]);
+			DrawLine(thing[i]);
 		};
 	};
 
@@ -139,350 +143,383 @@ var columns = 20;
 
 	//CAPITAL LETTERS DB
 		var A = [
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [4, 0], 6),
-			StraightLine2("hor", [5, 0], 6),
+			{mode: "hor", start: [4, 0], length: 6},
+			{mode: "hor", start: [5, 0], length: 6},
 
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 4], 10),
-			StraightLine2("ver", [0, 5], 10),
+			{mode: "ver", start: [0, 4], length: 10},
+			{mode: "ver", start: [0, 5], length: 10},
 		]
 
 		var B = [
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [4, 0], 6),
-			StraightLine2("hor", [5, 0], 6),
+			{mode: "hor", start: [4, 0], length: 6},
+			{mode: "hor", start: [5, 0], length: 6},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 
-			StraightLine2("ver", [0, 1], 10),
-			StraightLine2("ver", [0, 4], 10),
-			StraightLine2("ver", [0, 5], 10),
+			{mode: "ver", start: [0, 1], length: 10},
+			{mode: "ver", start: [0, 4], length: 10},
+			{mode: "ver", start: [0, 5], length: 10},
 		]
 
 		var C = [
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 		]
 
 		var D = [
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 
-			StraightLine2("ver", [0, 1], 10),
-			StraightLine2("ver", [0, 4], 10),
-			StraightLine2("ver", [0, 5], 10),
+			{mode: "ver", start: [0, 1], length: 10},
+			{mode: "ver", start: [0, 4], length: 10},
+			{mode: "ver", start: [0, 5], length: 10},
 		]
 
 		var E = [
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [4, 0], 6),
-			StraightLine2("hor", [5, 0], 6),
+			{mode: "hor", start: [4, 0], length: 6},
+			{mode: "hor", start: [5, 0], length: 6},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 		]
 
 		var F = [
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [4, 0], 6),
-			StraightLine2("hor", [5, 0], 6),
+			{mode: "hor", start: [4, 0], length: 6},
+			{mode: "hor", start: [5, 0], length: 6},
 
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 		]
 
 		var G = [
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [4, 3], 3),
-			StraightLine2("hor", [5, 3], 3),
+			{mode: "hor", start: [4, 3], length: 3},
+			{mode: "hor", start: [5, 3], length: 3},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [4, 4], 4),
-			StraightLine2("ver", [4, 5], 4),
+			{mode: "ver", start: [4, 4], length: 4},
+			{mode: "ver", start: [4, 5], length: 4},
 		]
 
 		var H = [
-			StraightLine2("hor", [4, 0], 6),
-			StraightLine2("hor", [5, 0], 6),
+			{mode: "hor", start: [4, 0], length: 6},
+			{mode: "hor", start: [5, 0], length: 6},
 
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 4], 10),
-			StraightLine2("ver", [0, 5], 10),
+			{mode: "ver", start: [0, 4], length: 10},
+			{mode: "ver", start: [0, 5], length: 10},
 		]
 
 		var I = [
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("ver", [0, 2], 10),
-			StraightLine2("ver", [0, 3], 10),
+			{mode: "ver", start: [0, 2], length: 10},
+			{mode: "ver", start: [0, 3], length: 10},
 		]
 
 		var J = [
-			StraightLine2("hor", [0, 1], 5),
-			StraightLine2("hor", [1, 1], 5),
+			{mode: "hor", start: [0, 1], length: 5},
+			{mode: "hor", start: [1, 1], length: 5},
 
-			StraightLine2("hor", [6, 0], 2),
-			StraightLine2("hor", [7, 0], 2),
+			{mode: "hor", start: [6, 0], length: 2},
+			{mode: "hor", start: [7, 0], length: 2},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 1], 4),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 1], length: 4},
 
-			StraightLine2("ver", [0, 4], 10),
-			StraightLine2("ver", [0, 5], 9),
+			{mode: "ver", start: [0, 4], length: 10},
+			{mode: "ver", start: [0, 5], length: 9},
 		]
 
 		var K = [
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("hor", [0, 4], 2),
-			StraightLine2("hor", [1, 4], 2),
-			StraightLine2("hor", [2, 4], 2),
+			{mode: "hor", start: [0, 4], length: 2},
+			{mode: "hor", start: [1, 4], length: 2},
+			{mode: "hor", start: [2, 4], length: 2},
 
-			StraightLine2("hor", [3, 3], 1),
-			StraightLine2("hor", [4, 2], 1),
-			StraightLine2("hor", [5, 2], 1),
-			StraightLine2("hor", [6, 3], 1),
-			StraightLine2("hor", [7, 4], 2),
-			StraightLine2("hor", [8, 4], 2),
-			StraightLine2("hor", [9, 4], 2),
+			{mode: "hor", start: [3, 3], length: 1},
+			{mode: "hor", start: [4, 2], length: 1},
+			{mode: "hor", start: [5, 2], length: 1},
+			{mode: "hor", start: [6, 3], length: 1},
+			{mode: "hor", start: [7, 4], length: 2},
+			{mode: "hor", start: [8, 4], length: 2},
+			{mode: "hor", start: [9, 4], length: 2},
 		]
 
 		var L = [
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 		]
 
 		var M = [
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 5], 10),
-			StraightLine2("ver", [0, 6], 10),
+			{mode: "ver", start: [0, 5], length: 10},
+			{mode: "ver", start: [0, 6], length: 10},
 
-			StraightLine2("hor", [4, 2], 1),
-			StraightLine2("hor", [5, 3], 1),
-			StraightLine2("hor", [4, 4], 1),
+			{mode: "hor", start: [4, 2], length: 1},
+			{mode: "hor", start: [5, 3], length: 1},
+			{mode: "hor", start: [4, 4], length: 1},
 		]
 
 		var N = [
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 5], 10),
-			StraightLine2("ver", [0, 6], 10),
+			{mode: "ver", start: [0, 5], length: 10},
+			{mode: "ver", start: [0, 6], length: 10},
 
-			StraightLine2("hor", [2, 2], 1),
+			{mode: "hor", start: [2, 2], length: 1},
 
-			StraightLine2("hor", [3, 2], 1),
-			StraightLine2("hor", [3, 3], 1),
+			{mode: "hor", start: [3, 2], length: 1},
+			{mode: "hor", start: [3, 3], length: 1},
 
-			StraightLine2("hor", [4, 2], 1),
-			StraightLine2("hor", [4, 3], 1),
-			StraightLine2("hor", [4, 4], 1),
+			{mode: "hor", start: [4, 2], length: 1},
+			{mode: "hor", start: [4, 3], length: 1},
+			{mode: "hor", start: [4, 4], length: 1},
 
-			StraightLine2("hor", [5, 3], 1),
-			StraightLine2("hor", [5, 4], 1),
+			{mode: "hor", start: [5, 3], length: 1},
+			{mode: "hor", start: [5, 4], length: 1},
 
-			StraightLine2("hor", [6, 4], 1),
+			{mode: "hor", start: [6, 4], length: 1},
 		]
 
 		var O = [
-			StraightLine2("ver", [1, 0], 8),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [1, 0], length: 8},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 5], 10),
-			StraightLine2("ver", [1, 6], 8),
+			{mode: "ver", start: [0, 5], length: 10},
+			{mode: "ver", start: [1, 6], length: 8},
 
-			StraightLine2("hor", [0, 1], 4),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 1], length: 4},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 1], 4),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 1], length: 4},
 		]
 
 		var P = [
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 4], 5),
-			StraightLine2("ver", [0, 5], 5),
+			{mode: "ver", start: [0, 4], length: 5},
+			{mode: "ver", start: [0, 5], length: 5},
 
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [4, 0], 6),
-			StraightLine2("hor", [5, 0], 6),
+			{mode: "hor", start: [4, 0], length: 6},
+			{mode: "hor", start: [5, 0], length: 6},
 		]
 
 		var Q = []
 
 		var R = [
-			StraightLine2("ver", [0, 0], 10),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 10},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 4], 5),
-			StraightLine2("ver", [0, 5], 4),
+			{mode: "ver", start: [0, 4], length: 5},
+			{mode: "ver", start: [0, 5], length: 4},
 
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [4, 0], 6),
-			StraightLine2("hor", [5, 0], 5),
+			{mode: "hor", start: [4, 0], length: 6},
+			{mode: "hor", start: [5, 0], length: 5},
 
-			StraightLine2("hor", [6, 3], 1),
-			StraightLine2("hor", [7, 4], 1),
-			StraightLine2("hor", [8, 4], 2),
-			StraightLine2("hor", [9, 4], 2),
+			{mode: "hor", start: [6, 3], length: 1},
+			{mode: "hor", start: [7, 4], length: 1},
+			{mode: "hor", start: [8, 4], length: 2},
+			{mode: "hor", start: [9, 4], length: 2},
 		]
 
 		var S = []
 		var T = [ 
-			StraightLine2("ver", [0, 2], 10),
-			StraightLine2("ver", [0, 3], 10),
+			{mode: "ver", start: [0, 2], length: 10},
+			{mode: "ver", start: [0, 3], length: 10},
 
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 		]
 		var U = [
-			StraightLine2("ver", [0, 0], 9),
-			StraightLine2("ver", [0, 1], 10),
+			{mode: "ver", start: [0, 0], length: 9},
+			{mode: "ver", start: [0, 1], length: 10},
 
-			StraightLine2("ver", [0, 5], 10),
-			StraightLine2("ver", [0, 6], 9),
+			{mode: "ver", start: [0, 5], length: 10},
+			{mode: "ver", start: [0, 6], length: 9},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 1], 4),
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 1], length: 4},
 		]
 
 		var V = [
-			StraightLine2("hor", [1, 0], 2),
-			StraightLine2("hor", [2, 0], 2),
-			StraightLine2("hor", [3, 0], 2),
-			StraightLine2("hor", [4, 0], 3),
-			StraightLine2("hor", [5, 1], 2),
-			StraightLine2("hor", [6, 1], 2),
+			{mode: "hor", start: [1, 0], length: 2},
+			{mode: "hor", start: [2, 0], length: 2},
+			{mode: "hor", start: [3, 0], length: 2},
+			{mode: "hor", start: [4, 0], length: 3},
+			{mode: "hor", start: [5, 1], length: 2},
+			{mode: "hor", start: [6, 1], length: 2},
 
-			StraightLine2("hor", [7, 2], 3),
-			StraightLine2("hor", [8, 2], 3),
-			StraightLine2("hor", [9, 3], 1),
+			{mode: "hor", start: [7, 2], length: 3},
+			{mode: "hor", start: [8, 2], length: 3},
+			{mode: "hor", start: [9, 3], length: 1},
 
-			StraightLine2("hor", [6, 4], 2),
-			StraightLine2("hor", [5, 4], 2),
-			StraightLine2("hor", [4, 4], 3),
-			StraightLine2("hor", [3, 5], 2),
-			StraightLine2("hor", [2, 5], 2),
-			StraightLine2("hor", [1, 5], 2),
+			{mode: "hor", start: [6, 4], length: 2},
+			{mode: "hor", start: [5, 4], length: 2},
+			{mode: "hor", start: [4, 4], length: 3},
+			{mode: "hor", start: [3, 5], length: 2},
+			{mode: "hor", start: [2, 5], length: 2},
+			{mode: "hor", start: [1, 5], length: 2},
 		]
 		var W = [
-			StraightLine2("hor", [0, 0], 1),	
-			StraightLine2("hor", [1, 0], 2),
-			StraightLine2("hor", [2, 0], 2),
-			StraightLine2("hor", [3, 0], 2),
-			StraightLine2("hor", [4, 0], 3),
-			StraightLine2("hor", [5, 1], 2),
-			StraightLine2("hor", [6, 1], 2),
+			{mode: "hor", start: [0, 0], length: 1},	
+			{mode: "hor", start: [1, 0], length: 2},
+			{mode: "hor", start: [2, 0], length: 2},
+			{mode: "hor", start: [3, 0], length: 2},
+			{mode: "hor", start: [4, 0], length: 3},
+			{mode: "hor", start: [5, 1], length: 2},
+			{mode: "hor", start: [6, 1], length: 2},
 
-			StraightLine2("hor", [7, 2], 3),
-			StraightLine2("hor", [8, 2], 3),
-			StraightLine2("hor", [9, 3], 1),
+			{mode: "hor", start: [7, 2], length: 3},
+			{mode: "hor", start: [8, 2], length: 3},
+			{mode: "hor", start: [9, 3], length: 1},
 
-			StraightLine2("hor", [6, 4], 2),
-			StraightLine2("hor", [5, 4], 5),
-			StraightLine2("hor", [4, 4], 5),
-			StraightLine2("hor", [3, 5], 3),
-			StraightLine2("hor", [2, 5], 3),
-			StraightLine2("hor", [1, 5], 3),
+			{mode: "hor", start: [6, 4], length: 2},
+			{mode: "hor", start: [5, 4], length: 5},
+			{mode: "hor", start: [4, 4], length: 5},
+			{mode: "hor", start: [3, 5], length: 3},
+			{mode: "hor", start: [2, 5], length: 3},
+			{mode: "hor", start: [1, 5], length: 3},
 
-			StraightLine2("hor", [0, 6], 1),
+			{mode: "hor", start: [0, 6], length: 1},
 
-			StraightLine2("hor", [6, 7], 2),		
-			StraightLine2("hor", [7, 8], 3),	
-			StraightLine2("hor", [8, 8], 3),	
-			StraightLine2("hor", [9, 9], 1),
+			{mode: "hor", start: [6, 7], length: 2},	
+			{mode: "hor", start: [7, 8], length: 3},
+			{mode: "hor", start: [8, 8], length: 3},	
+			{mode: "hor", start: [9, 9], length: 1},
 
-			StraightLine2("hor", [0, 12], 1),	
-			StraightLine2("hor", [1, 11], 2),		
-			StraightLine2("hor", [2, 11], 2),		
-			StraightLine2("hor", [3, 11], 2),	
-			StraightLine2("hor", [4, 10], 3),		
-			StraightLine2("hor", [5, 10], 2),		
-			StraightLine2("hor", [6, 10], 2),	
+			{mode: "hor", start: [0, 12], length: 1},	
+			{mode: "hor", start: [1, 11], length: 2},	
+			{mode: "hor", start: [2, 11], length: 2},	
+			{mode: "hor", start: [3, 11], length: 2},	
+			{mode: "hor", start: [4, 10], length: 3},	
+			{mode: "hor", start: [5, 10], length: 2},	
+			{mode: "hor", start: [6, 10], length: 2}	
 		]
 
 		var X = [
-			
+			{mode: "hor", start: [0, 0], length: 1},
+			{mode: "hor", start: [0, 5], length: 1},
+
+			{mode: "hor", start: [1, 0], length: 1},
+			{mode: "hor", start: [1, 5], length: 1},
+
+			{mode: "hor", start: [2, 0], length: 2},
+			{mode: "hor", start: [2, 4], length: 2},
+
+			{mode: "hor", start: [3, 1], length: 4},
+
+			{mode: "hor", start: [4, 2], length: 2},
+			{mode: "hor", start: [5, 2], length: 2},
+
+			{mode: "hor", start: [6, 1], length: 1},
+			{mode: "hor", start: [6, 4], length: 1},
+
+			{mode: "ver", start: [7, 0], length: 3},
+			{mode: "ver", start: [7, 5], length: 3},
 		]
-
-
 
 		var Y = []	
-		
+
+
 		var Z = [ 
-			StraightLine2("hor", [0, 0], 6),
-			StraightLine2("hor", [1, 0], 6),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [2, 4], 2),
+			{mode: "hor", start: [0, 0], length: 6},
+			{mode: "hor", start: [1, 0], length: 6},
 
-			StraightLine2("hor", [3, 4], 1),
-			StraightLine2("hor", [4, 3], 1),
-			StraightLine2("hor", [5, 2], 1),
-			StraightLine2("hor", [6, 1], 1),
+			{mode: "hor", start: [2, 4], length: 2},
 
-			StraightLine2("hor", [7, 0], 2),
+			{mode: "hor", start: [3, 4], length: 1},
+			{mode: "hor", start: [4, 3], length: 1},
+			{mode: "hor", start: [5, 2], length: 1},
+			{mode: "hor", start: [6, 1], length: 1},
 
-			StraightLine2("hor", [8, 0], 6),
-			StraightLine2("hor", [9, 0], 6),
+			{mode: "hor", start: [7, 0], length: 2},
+
+			{mode: "hor", start: [8, 0], length: 6},
+			{mode: "hor", start: [9, 0], length: 6},
 		]
- 
 
-	Draw(W);
+function newDraw(input) {
+	for(var i = 0; i < input.length; i++) {
+		array = [ StraightLine2(input[i].mode, input[i].start, input[i].length) ];
+		Draw(array); //Draw expects an array
+	};
+}
+
+newDraw(W);
+
+// Draw(X);
+
+//SENTENCE FUNCTION 
+
+//START POINT 
+
+
 
 // AGENDA 
 // Draw all letters
 // space them out 
-// GO GET MIDI CONTROLLER FOR JOSH
 
 // MARKUS SHULZ 1:41:00
 
