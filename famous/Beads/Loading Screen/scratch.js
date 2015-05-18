@@ -2,8 +2,10 @@ var Engine = famous.core.Engine;
 var Transform = famous.core.Transform;
 var Surface = famous.core.Surface;
 var Modifier = famous.core.Modifier;
-
+var StateModifier = famous.modifiers.StateModifier
 var mainContext = Engine.createContext();
+var Timer = famous.utilities.Timer;
+
 var beadResolution = 20;
 var beadCollector = [];
 var spacing = 2;
@@ -21,8 +23,27 @@ var spacing = 2;
 var rows = 20;
 var columns = 40;
 
-backgroundSurface = new Surface({properties: { backgroundColor: 'black' }, size: [,]});
-mainContext.add(backgroundSurface);
+//BACKGROUND
+	var backgroundContent = '<style> input[type=text]:focus  { border-color: white; }  </style>' + 
+		'<div style="padding: 1em;"> <strong> Welcome. This is M<em>e</em>&M<em>y</em>AI. </strong> <br><br> <input style="width: 200px; height: 1.5em; border-radius: 5px; -webkit-transition: 2s; font-family: "Lato"; font-size: 2em; padding: 1em;" > </input> </div>';
+
+	backgroundSurface = new Surface({
+		size: [ , ], 
+		content: backgroundContent,
+		properties: { 
+			backgroundColor: 'black', 
+			color: 'white', 
+			textAlign: 'center',  
+			paddingTop: $( window ).height()/2 + 'px', 
+			fontFamily: 'Lato', 
+			fontWeight: 100
+		}
+	});
+	backgroundSurfaceModifier = new Modifier({
+		align: [0.5, 0.5],
+		origin: [0.5, 0.5],
+	})
+	mainContext.add(backgroundSurfaceModifier).add(backgroundSurface);
 
 
 //MATRIX
@@ -37,14 +58,18 @@ mainContext.add(backgroundSurface);
 					size: [beadResolution, beadResolution],
 					properties: {
 						backgroundColor: getRandomColor(),
+						// boxShadow: '0px 0px 50px white',
 						borderRadius: '100%'
 					}
 				})
 			//MODIFIER
-				var beadmodifier = new Modifier({
+				var beadmodifier = new StateModifier({
 					align: [0.01, 0.01],
-					transform: Transform.translate( i* (beadResolution * spacing), row) 
+					transform: Transform.translate( i * (beadResolution * spacing), row) 
 				});
+
+				// var beadStateModifier = new StateModifier({
+				// });
 
 				Bead.on('mouseover', function() {
 					this.setProperties({
@@ -53,7 +78,15 @@ mainContext.add(backgroundSurface);
 					});
 				});
 
+
 				mainContext.add(beadmodifier).add(Bead);
+				// Bead.on('click', function() {
+				// 	beadmodifier.setTransform(
+				// 		Transform.translate(Math.random()*600, Math.random()*600, 2),
+				// 		{ duration: 500 } 
+				// 	)
+				// });
+
 				beadCollectorColumn.push(Bead);
 		};
 		beadCollector.push(beadCollectorColumn);
@@ -111,7 +144,6 @@ mainContext.add(backgroundSurface);
 
 	// DeleteLine(StraightLine('ver', 2, 10, 5));
 	// DeleteLine(StraightLine('ver', 2, 10, 3))
-
 //DRAW LINE FUNCTION 
 	function DrawLine(line) {
 		length = line.length
@@ -123,7 +155,6 @@ mainContext.add(backgroundSurface);
 			});
 		};
 	};
-
 // --OUTPUT -- //
 	function Draw(thing) {
 		for(i = 0; i < thing.length; i++) {
@@ -499,7 +530,6 @@ mainContext.add(backgroundSurface);
 			{mode: "hor", start: [8, 0], length: 6},
 			{mode: "hor", start: [9, 0], length: 6},
 		]
-
 function newDraw(input) {
 	for(var i = 0; i < input.length; i++) {
 		array = [ StraightLine2(input[i].mode, input[i].start, input[i].length) ];
@@ -507,21 +537,48 @@ function newDraw(input) {
 	};
 }
 
-newDraw(W);
+// CHANGE BEAD COLOR OVER TIME
 
-// Draw(X);
+function flashingBeads(collection) {
+	for(var j = 0; j < rows; j++) {
+		for (var i = 0; i < columns; i++) {
+				return collection[j][i];
+			};
+		};
+	}
 
-//SENTENCE FUNCTION 
+flashingBeads(beadCollector)
 
-//START POINT 
+// newDraw();
+
+	//DELETE AND ON RESIZE DELETION
+	DeleteLine(StraightLine2('hor', [(Math.floor(($( window ).height()/70)) - 1), 15 ], 6))
+	DeleteLine(StraightLine2('hor', [(Math.floor(($( window ).height()/70))), 15 ], 6))
+
+	Engine.on('resize', function() {
+		DeleteLine(StraightLine2('hor', [10, (Math.floor(($( window ).width()/100)))], 6))
+		DeleteLine(StraightLine2('hor', [11, (Math.floor(($( window ).width()/100)))], 6))
+
+		var draw = [
+			{mode: 'hor', start: [10, (Math.floor(($( window ).width()/100)))], length: 6},
+			{mode: 'hor', start: [11, (Math.floor(($( window ).width()/100)))], length: 6}
+		]
+
+		newDraw(draw);
+	});
+
 
 
 
 // AGENDA 
-// Draw all letters
-// space them out 
+	// Delete lines according to spacing.
 
-// MARKUS SHULZ 1:41:00
+	// Record lines
+	// Store them on 
+
+	// space them out 
+
+	// MARKUS SHULZ 1:41:00
 
 
 
