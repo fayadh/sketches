@@ -6,9 +6,9 @@ var StateModifier = famous.modifiers.StateModifier
 var Timer = famous.utilities.Timer
 
 var mainContext = Engine.createContext();
-var beadResolution = 20;
+var beadResolution = 10;
 var beadCollector = [];
-var spacing = 2;
+var spacing = 1;
 
 //RANDOM COLOR
 		function getRandomColor() {
@@ -25,8 +25,8 @@ function randomIntFromInterval(min,max)
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-var rows = 20;
-var columns = 20;
+var rows = 80;
+var columns = 40;
 
 //BACKGROUND
 	var backgroundSurface = new Surface({ 
@@ -40,8 +40,6 @@ var columns = 20;
 	});
 
 	mainContext.add(backgroundSurfaceModifier).add(backgroundSurface)
-
-
 
 //MATRIX
 	for(j = 0; j < rows; j++) { 
@@ -72,7 +70,7 @@ var columns = 20;
 
 				Bead.on('mouseover', function() {
 					this.setProperties({
-						backgroundColor: 'green',
+						backgroundColor: 'red',
 						boxShadow: '5px 5px 5px white'
 					});
 				});
@@ -96,26 +94,11 @@ var columns = 20;
 startX = 0;
 startY = 0;
 
-var travelPath = []
+currentCell = []
 
 Engine.on('keydown', function(e) {
 	console.log(e)
 	if (e.which === 39) {
-
-		//next cell
-		var nextCell = startY + "," + (startX + 1)
-
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-		//test necessary increment
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				console.log("block")
-			}
-		}
-
-		//store old coordinate
-		travelPath.push([startY, startX])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
@@ -130,23 +113,6 @@ Engine.on('keydown', function(e) {
 	  	backgroundSize: "100%"
 		})
 	} else if(e.which === 37) {
-
-		//next cell
-		var nextCell = startY + "," + (startX - 1)
-
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-		//test necessary increment
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				console.log("block")
-			}
-		}
-
-
-
-		//store old coordinate
-		travelPath.push([startY, startX])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
@@ -161,23 +127,6 @@ Engine.on('keydown', function(e) {
 	  	backgroundSize: "100%" 
 		})
 	} else if(e.which === 38) {
-
-		//next cell
-		var nextCell = (startY - 1) + "," + startX
-
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-		//test necessary increment
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				console.log("block")
-			}
-		}
-
-
-
-		//store old coordinate
-		travelPath.push([startY, startX])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
@@ -192,21 +141,6 @@ Engine.on('keydown', function(e) {
 	  	backgroundSize: "100%"
 		})
 	} else if(e.which === 40) {
-
-		//next cell
-		var nextCell = (startY + 1) + "," + startX
-
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-		//test necessary increment
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				console.log("block")
-			}
-		}
-
-		//store old coordinate
-		travelPath.push([startY, startX])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
@@ -225,13 +159,10 @@ Engine.on('keydown', function(e) {
 });
 
 //RANDOM BEAD DELETER 
-var blockCollection = []
+
 function createRandomBlocks() {
-	for(var i = 0; i < 20; i++) {
-		var randY = randomIntFromInterval(0, rows - 1)
-		var randX = randomIntFromInterval(0, columns - 1)
-		blockCollection.push([randY, randX])
-		beadCollector[randY][randX].setProperties({
+	for(var i = 0; i < 10; i++) {
+		beadCollector[randomIntFromInterval(0, rows - 1)][randomIntFromInterval(0, columns - 1)].setProperties({
 			borderRadius: "0%",
 			backgroundColor: "white",
 			boxShadow: "0px 0px 30px white",
@@ -239,24 +170,8 @@ function createRandomBlocks() {
 	}
 }
 
-createRandomBlocks()
-// Timer.every(function() { return createRandomBlocks() }, 5) 
+Timer.every(function() { return createRandomBlocks() }, 2) 
 // createRandomBlocks()
-
-// if I have 
-// 0 0 0 1 B
-// be is at [0][5]
-// I'm at [0][4]
-// If I click right, the function knows that [0][5] is the next co-ordinate.
-// If the next coordinate is in the blockCollection, don't allow this. 
-
-
-
-
-
-
-
-
 
 // DELETE: beadCollector[ point[0] ][ point[1] ].render = function() { return null }
 
