@@ -170,7 +170,7 @@ function createRandomBlocks() {
 	}
 }
 
-// Timer.every(function() { return createRandomBlocks() }, 2)
+Timer.every(function() { return createRandomBlocks() }, 2) 
 // createRandomBlocks()
 
 // DELETE: beadCollector[ point[0] ][ point[1] ].render = function() { return null }

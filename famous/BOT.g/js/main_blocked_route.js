@@ -70,7 +70,7 @@ var columns = 20;
 
 				Bead.on('mouseover', function() {
 					this.setProperties({
-						backgroundColor: 'green',
+						backgroundColor: 'white',
 						boxShadow: '5px 5px 5px white'
 					});
 				});
@@ -159,11 +159,13 @@ Engine.on('keydown', function(e) {
 });
 
 //RANDOM BEAD DELETER 
-
+blocks = []
 function createRandomBlocks() {
-	var rate = 10;
-	for(var i = 0; i < rate; i++) {
-		beadCollector[randomIntFromInterval(0, 19)][randomIntFromInterval(0, 19)].setProperties({
+	for(var i = 0; i < 20; i++) {
+		var randInt1 = randomIntFromInterval(0, 19)
+		var randInt2 = randomIntFromInterval(0, 19)
+		blocks.push([randInt1, randInt2])
+		beadCollector[randInt1][randInt2].setProperties({
 			borderRadius: "0%",
 			backgroundColor: "white",
 			boxShadow: "0px 0px 30px white",
@@ -171,44 +173,8 @@ function createRandomBlocks() {
 	}
 }
 
-var animationI2 = 0;
-function blocksSweepRight() {
-	for(var j = 0; j < rows; j++) {
-		beadCollector[j][animationI2].setProperties({
-			borderRadius: "0%",
-			backgroundColor: "white",
-			boxShadow: "0px 0px 30px white",
-		})
-	}
-	animationI2++
-}
-
-var animationI = columns - 1;
-function blocksSweepLeft() {
-	for(var j = 0; j < rows; j++) {
-		beadCollector[j][animationI].setProperties({
-			borderRadius: "0%",
-			backgroundColor: getRandomColor(),
-			boxShadow: "0px 0px 30px white",
-		})
-	}
-	animationI = animationI - 1;
-}
-
-// Clean Sweeps
-	Timer.every(function() { 
-		return blocksSweepRight() 
-	}, 2) 
-
-// Random Sweeps
-	// Timer.every(function() { 
-	// 	return blocksSweepRight() 
-	// }, randomIntFromInterval(0, 5)) 
-
-	// Timer.every(function() { 
-	// 	return blocksSweepLeft() 
-	// }, randomIntFromInterval(0, 5)) 
-
+createRandomBlocks()
+// createRandomBlocks()
 
 // DELETE: beadCollector[ point[0] ][ point[1] ].render = function() { return null }
 

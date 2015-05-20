@@ -89,10 +89,13 @@ startX = 0;
 startY = 0;
 
 currentCell = []
+travelPath = []
 
 Engine.on('keydown', function(e) {
 	console.log(e)
 	if (e.which === 39) {
+		//store old coordinate
+		travelPath.push([startX, startY])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
@@ -107,6 +110,8 @@ Engine.on('keydown', function(e) {
 	  	backgroundSize: "100%"
 		})
 	} else if(e.which === 37) {
+		//store old coordinate
+		travelPath.push([startX, startY])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
@@ -121,6 +126,8 @@ Engine.on('keydown', function(e) {
 	  	backgroundSize: "100%" 
 		})
 	} else if(e.which === 38) {
+		//store old coordinate
+		travelPath.push([startX, startY])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
@@ -135,6 +142,8 @@ Engine.on('keydown', function(e) {
 	  	backgroundSize: "100%"
 		})
 	} else if(e.which === 40) {
+		//store old coordinate
+		travelPath.push([startX, startY])
 		//Reset previous bead
 		beadCollector[startY][startX].setProperties({
 	  	backgroundColor: getRandomColor(),
