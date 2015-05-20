@@ -94,10 +94,7 @@ Engine.on('keydown', function(e) {
 	console.log(e)
 	if (e.which === 39) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//RIGHT
 		startX++;
 	  beadCollector[startY][startX].setProperties({
@@ -108,10 +105,7 @@ Engine.on('keydown', function(e) {
 		})
 	} else if(e.which === 37) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//LEFT
 		startX = startX - 1
 		beadCollector[startY][startX].setProperties({
@@ -122,10 +116,7 @@ Engine.on('keydown', function(e) {
 		})
 	} else if(e.which === 38) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//UP
 		startY = startY - 1
 		beadCollector[startY][startX].setProperties({
@@ -136,10 +127,7 @@ Engine.on('keydown', function(e) {
 		})
 	} else if(e.which === 40) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//DOWN
 		startY++;
 
@@ -152,7 +140,6 @@ Engine.on('keydown', function(e) {
 	}
 
 });
-
 
 // DELETE: beadCollector[ point[0] ][ point[1] ].render = function() { return null }
 

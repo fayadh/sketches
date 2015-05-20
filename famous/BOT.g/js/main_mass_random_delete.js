@@ -18,6 +18,11 @@ var spacing = 2;
 		  }
 		  return color;
 		}
+//RANDOM INTEGER
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
 
 var rows = 20;
 var columns = 20;
@@ -94,10 +99,7 @@ Engine.on('keydown', function(e) {
 	console.log(e)
 	if (e.which === 39) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//RIGHT
 		startX++;
 	  beadCollector[startY][startX].setProperties({
@@ -108,10 +110,7 @@ Engine.on('keydown', function(e) {
 		})
 	} else if(e.which === 37) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//LEFT
 		startX = startX - 1
 		beadCollector[startY][startX].setProperties({
@@ -122,10 +121,7 @@ Engine.on('keydown', function(e) {
 		})
 	} else if(e.which === 38) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//UP
 		startY = startY - 1
 		beadCollector[startY][startX].setProperties({
@@ -136,10 +132,7 @@ Engine.on('keydown', function(e) {
 		})
 	} else if(e.which === 40) {
 		//Reset previous bead
-		beadCollector[startY][startX].setProperties({
-	  	backgroundColor: getRandomColor(),
-	  	backgroundImage: "none"
-	  });
+		beadCollector[startY][startX].render = function() { return null }
 		//DOWN
 		startY++;
 
@@ -147,24 +140,20 @@ Engine.on('keydown', function(e) {
 	  	backgroundColor: "blue",
 	  	boxShadow: "0px 0px 30px white",
 	  	backgroundImage: "url('images/bot.gif')",
-	  	backgroundSize: "100%"
+	  	backgroundSize: "100%",
 		})
 	}
-
 });
 
+//RANDOM BEAD DELETER 
+
+function deleteRandomBeads() {
+	for(var i = 0; i < 40; i++) {
+		beadCollector[randomIntFromInterval(0, 19)][randomIntFromInterval(0, 19)].render = function() { return null }
+	}
+}
+
+deleteRandomBeads()
 
 // DELETE: beadCollector[ point[0] ][ point[1] ].render = function() { return null }
 
-// how to chart something on a board.
-// 1 0 0
-// 0 0 0
-// 0 0 0
-// flipping between one's and zero's. 
-// click right.
-// 0 1 0
-// 0 0 0
-// 0 0 0
-// when i click right, you select the cell on the same row, but the column on my right.  
-// you turn that into the current cell, so its value is one
-// and then you turn the old cell back to zero.  
