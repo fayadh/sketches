@@ -263,7 +263,46 @@ function createRandomBlocks() {
 }
 
 createRandomBlocks()
-// Timer.every(function() { return createRandomBlocks() }, 5) 
+
+//Random food generator
+//we need a function to determine selectable seeds.
+	var foodCollection = []
+	function createRandomFoods() {
+		for(var i = 0; i < 50; i++) {
+			var randY = randomIntFromInterval(0, rows - 1)
+			var randX = randomIntFromInterval(0, columns - 1)
+			foodCollection.push([randY, randX])
+			beadCollector[randY][randX].setProperties({
+				borderRadius: "100%",
+				backgroundColor: "pink",
+				backgroundImage: 'http://effextures.com/wp-content/uploads/2013/08/Star.jpg',
+				boxShadow: "0px 0px 30px white",
+			})
+		}
+	}
+	// createRandomFoods()
+
+//Time the animation
+	//first way
+	var imageAnimationSwitch = 0;
+	var ts = 300;
+
+
+	Timer.every(function() {
+		if(imageAnimationSwitch == 0) { $('#bashImage').removeClass("animated jello infinite"); imageAnimationSwitch = 1}
+		else { $('#bashImage').addClass("animated jello infinite"); imageAnimationSwitch = 0}
+	}, ts)
+
+	//second way
+	//look at the css file.
+
+
+
+
+
+
+
+// Timer.every(function() { return createRandomBlocks() }, 100) 
 // createRandomBlocks()
 // DELETE: beadCollector[ point[0] ][ point[1] ].render = function() { return null }
 

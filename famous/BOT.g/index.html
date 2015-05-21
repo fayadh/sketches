@@ -15,6 +15,7 @@
   <script type="text/javascript" src="http://code.famo.us/famous/0.3/famous-global.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <link rel="stylesheet" href="stylesheets/app.css">
+  <link rel="stylesheet" href="stylesheets/animate.css">
 </head>
 
 <body>
@@ -27,21 +28,33 @@
 <div id="Menu" style="-webkit-transform: translateX(800px); padding: 1em;">
 	<h1>Welcome, to my playground.</h1>
 	<p id="name"> Fayadh al-Mosawi, Web Developer. </p><br>
-	<span id="ibashDescription"> this is the <em>ibash</em> project, an experimental, dynamic, <br> personal webspace  concept built for the web.</span>
+	<span id="ibashDescription"> this is the <em>ibash</em> project, an experimental, dynamic, <br> personal space  concept built for the web. <br><br> <hr> <span id="clickIbash"> Click on ibash to proceed.</span> </span>
 
  <br><br><br><br> <br><br><br><br>
 <div class="console">
-	<span id="cd2"> <img src="images/ibash.png" height="80%" style="position: absolute;"/> </span>
+	<span id="cd2"> <img id="bashImage" src="images/ibash_title2.png" height="80%" style="position: absolute;" class="animated jello infinite"/> </span>
 	<span id="cd1"> <em><strong> ~ibash </strong> </em> </span>
-	<input id="cd2" placeholder="Hi! :) Confused? type: open world"></input><br>
-	<span id="cdexample"><em> ex: open world, botg. <em></span>
+
+	<input id="cd1" placeholder="Hi! :) Confused? type: open world"></input><br>
+	<button id="hiddenButton" type="submit" action="" style="visibility: hidden;"> enter</button>
+	
+
+	<span id="cdexample"><em> ex: open world, botg. </em></span>
 	<hr>
 
 	<p id="subContentContainer"> 
 		docs: <br>
-		<strong> open world: </strong> the first thing to remember. opens the bio page. <br>
-
+		<table>
+			<tr>
+				<td><strong>open world:</strong></td> <td>the first thing to remember. opens the bio page. </td>
+			</tr>
+			<tr>
+				<td><strong>go</strong></td> <td>the first thing to remember. opens the bio page. </td>
+			</tr>
+		</table>
 	</p>
+
+	<!-- make a formula for automating the docs -->
 
 
 

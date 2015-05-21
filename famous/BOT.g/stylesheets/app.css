@@ -39,6 +39,10 @@
 		box-shadow: "none"
 	}
 
+	td {
+		padding: 0.125em
+	}
+
 #cdexample {
 	font-size: 12px;
 	margin: 1em 2em 0.5em 2em;
@@ -51,3 +55,16 @@
 #name {
 	font-weight: 700;
 }
+
+#clickIbash {
+	font-size: 16px;
+	margin: 0em;
+	display: inline-block;	
+}
+
+// second timer solution
+// #bashImage {
+//   -vendor-animation-duration: 3s;
+//   -vendor-animation-delay: 5s;
+//   -vendor-animation-iteration-count: infinite;
+// }

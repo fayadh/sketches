@@ -12,9 +12,11 @@ Element.prototype.remove = function() {
 $(function() {
 	$('hr').hide();
 	$('#subContentContainer').hide();
+	$('td').hide();
 	$('#cdexample').hide();
 	$('#cd1').hide();
 	$('input').hide();
+
 
 	$('#cd2').on('click', function(){
 			$('#cd2').toggle(100);
@@ -23,6 +25,8 @@ $(function() {
 			$('hr').toggle(100);
 			$('#subContentContainer').toggle(100);
 			$('#cdexample').toggle(100);
+			$('td').toggle();
+			$('#clickIbash').hide();
 		})
 
 
@@ -33,5 +37,19 @@ $(function() {
 				$('hr').toggle(100);
 				$('#subContentContainer').toggle(100);
 				$('#cdexample').toggle(100);
+				$('td').toggle();
+				$('#clickIbash').toggle();
 			})
+
+		$(function(){
+	    $('input').keypress(function(e){
+	      if(e.keyCode==13)
+	      $('#hiddenButton').click();
+	    });
+		});
+
+
+		
+
+
 		})
