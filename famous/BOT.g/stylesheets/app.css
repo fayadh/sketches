@@ -1,0 +1,53 @@
+	html, body {
+		font-family: 'Lato';	
+	}
+
+	h1 {
+		margin: 16px;
+		border: 0;
+		font-weight: 300;
+		
+	}
+
+	button {
+		font-family: 'Lato';
+		font-size: 1em;
+		margin: 1em;
+	}
+
+
+	p {
+		margin: 1em;
+		display: inline-block
+	}
+
+	span {
+		margin: 1em;
+		display: inline-block;
+		font-size: 1.5em;
+	}
+
+	input {
+		width: 400px;
+		padding: 0.5em 0.25em 0.5em 0.25em;
+		font-size: 1em;
+		font-family: 'Lato';
+		font-weight: 400;
+	}
+
+	input:select {
+		box-shadow: "none"
+	}
+
+#cdexample {
+	font-size: 12px;
+	margin: 1em 2em 0.5em 2em;
+}
+
+#ibashDescription {
+	font-size: 16px;	
+}
+
+#name {
+	font-weight: 700;
+}

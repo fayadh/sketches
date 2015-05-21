@@ -30,7 +30,7 @@ var columns = 20;
 
 //BACKGROUND
 	var backgroundSurface = new Surface({ 
-		size: [ , ],
+		size: [ 800, ],
 		properties: {
 			backgroundColor: "black"
 		} 
@@ -70,8 +70,8 @@ var columns = 20;
 
 				Bead.on('mouseover', function() {
 					this.setProperties({
-						backgroundColor: 'green',
-						boxShadow: '5px 5px 5px white'
+						backgroundColor: 'pink',
+						// boxShadow: '5px 5px 5px white'
 					});
 				});
 
@@ -121,7 +121,7 @@ Engine.on('keydown', function(e) {
 			travelPath.push([startY, startX])
 			//Reset previous bead
 			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: getRandomColor(),
+		  	backgroundColor: "yellow",
 		  	backgroundImage: "none"
 		  });
 			//RIGHT
@@ -159,7 +159,7 @@ Engine.on('keydown', function(e) {
 			travelPath.push([startY, startX])
 			//Reset previous bead
 			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: getRandomColor(),
+		  	backgroundColor: "yellow",
 		  	backgroundImage: "none"
 		  });
 			//LEFT
@@ -194,7 +194,7 @@ Engine.on('keydown', function(e) {
 			travelPath.push([startY, startX])
 			//Reset previous bead
 			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: getRandomColor(),
+		  	backgroundColor: "yellow",
 		  	backgroundImage: "none"
 		  });
 			//UP
@@ -230,7 +230,7 @@ Engine.on('keydown', function(e) {
 
 			//Reset previous bead
 			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: getRandomColor(),
+		  	backgroundColor: "yellow",
 		  	backgroundImage: "none"
 		  });
 			//DOWN
@@ -250,7 +250,7 @@ Engine.on('keydown', function(e) {
 //RANDOM BEAD DELETER 
 var blockCollection = []
 function createRandomBlocks() {
-	for(var i = 0; i < 20; i++) {
+	for(var i = 0; i < 50; i++) {
 		var randY = randomIntFromInterval(0, rows - 1)
 		var randX = randomIntFromInterval(0, columns - 1)
 		blockCollection.push([randY, randX])
