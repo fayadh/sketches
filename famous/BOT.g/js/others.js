@@ -10,8 +10,9 @@ Element.prototype.remove = function() {
 		}
 
 $(function() {
-
-
+	$('hr').hide();
+	$('#subContentContainer').hide();
+	$('#cdexample').hide();
 	$('#cd1').hide();
 	$('input').hide();
 
@@ -19,6 +20,9 @@ $(function() {
 			$('#cd2').toggle(100);
 			$('#cd1').toggle(100);
 			$('input').toggle(100);
+			$('hr').toggle(100);
+			$('#subContentContainer').toggle(100);
+			$('#cdexample').toggle(100);
 		})
 
 
@@ -26,5 +30,8 @@ $(function() {
 				$('#cd1').toggle(100);
 				$('#cd2').toggle(100);
 				$('input').toggle(100);
+				$('hr').toggle(100);
+				$('#subContentContainer').toggle(100);
+				$('#cdexample').toggle(100);
 			})
 		})
