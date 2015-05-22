@@ -155,41 +155,6 @@ Engine.on('keydown', function(e) {
 			console.log("cant")
 		}
 
-	} else if(e.which === 37) {
-		//next cell
-		var nextCell = startY + "," + (startX - 1)
-
-		//where am I? 
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-		
-		//test if the next move hits a block
-		var condition = "false"
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				condition = "true";
-				console.log(condition)
-			}
-		}
-
-		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-		if(condition == "false") { 
-			//store old coordinate
-			travelPath.push([startY, startX])
-			//Reset previous bead
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "yellow",
-		  	backgroundImage: "none"
-		  });
-			//LEFT
-			startX = startX - 1
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "blue",
-		  	boxShadow: "0px 0px 10px yellow",
-		  	backgroundImage: "url('images/bot.gif')",
-		  	backgroundSize: "100%" 
-			})
-		}
 	} else if(e.which === 38) {
 		//next cell
 		var nextCell = (startY - 1) + "," + startX
@@ -266,6 +231,45 @@ Engine.on('keydown', function(e) {
 	}
 });
 
+Engine.on('keydown', function(e) {
+	 if(e.which === 37) {
+		//next cell
+		var nextCell = startY + "," + (startX - 1)
+
+		//where am I? 
+		console.log("current cell is: " + startY + "," + startX)
+		console.log("next cell is: " + nextCell)
+		
+		//test if the next move hits a block
+		var condition = "false"
+		for(var i = 0; i < blockCollection.length; i++) {
+			if (blockCollection[i] == nextCell) {
+				condition = "true";
+				console.log(condition)
+			}
+		}
+
+		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+		if(condition == "false") { 
+			//store old coordinate
+			travelPath.push([startY, startX])
+			//Reset previous bead
+			beadCollector[startY][startX].setProperties({
+		  	backgroundColor: "yellow",
+		  	backgroundImage: "none"
+		  });
+			//LEFT
+			startX = startX - 1
+			beadCollector[startY][startX].setProperties({
+		  	backgroundColor: "blue",
+		  	boxShadow: "0px 0px 10px yellow",
+		  	backgroundImage: "url('images/bot.gif')",
+		  	backgroundSize: "100%" 
+			})
+		}
+	} 
+})
+
 //RANDOM BEAD DELETER 
 var blockCollection = []
 function createRandomBlocks() {
@@ -287,7 +291,9 @@ createRandomBlocks()
 //we need a function to determine selectable seeds.
 	var foodCollection = []
 	function createRandomFoods() {
-		for(var i = 0; i < 50; i++) {
+		var i = 0;
+		var quantity = 50;
+		while (i < quantity) {
 			var randY = randomIntFromInterval(0, rows - 1)
 			var randX = randomIntFromInterval(0, columns - 1)
 			var condition = "false"
@@ -296,7 +302,8 @@ createRandomBlocks()
 			}
 			console.log(condition)
 			if(condition == "false") {
-				foodCollection.push([randY, randX])
+				i++;
+				foodCollection.push([randY, randX]);
 				beadCollector[randY][randX].setProperties({
 					borderRadius: "100%",
 					backgroundColor: "white",
@@ -306,6 +313,9 @@ createRandomBlocks()
 			}
 		}
 	}
+
+//scores from eating
+
 
 	createRandomFoods()
 

@@ -25,6 +25,7 @@ var db = {
 			{ "command": "720p", "description": "back to normal size.", "example":"" },
 			{ "command": "youtube", "description": "my youtube page", "example":"" },
 			{ "command": "expresspad", "description": "turns the grid to paper and allows you to draw", "example":"share botg facebook" },
+			{ "command": "atmosphere", "description": "change the feel of the site", "example":"" },
 		]
 	}
 }
