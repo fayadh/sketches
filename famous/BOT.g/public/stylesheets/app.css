@@ -87,7 +87,9 @@ td {
 	border-right: thick double #ff0000;
 }
 
-
+#hiddenButton {
+	display: none !important;
+}
 
 // second timer solution
 // #bashImage {
