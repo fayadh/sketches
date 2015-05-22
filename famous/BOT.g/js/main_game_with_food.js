@@ -40,7 +40,6 @@ var columns = 20;
 	});
 
 	mainContext.add(backgroundSurfaceModifier).add(backgroundSurface)
-
 //botg on the playground
 	var botgImageSurface = new Surface({ 
 		size: [800, ],
@@ -52,7 +51,6 @@ var columns = 20;
 	var botgImageStateModifier = new StateModifier ({
 				
 	});
-
 //content container
 	var contentSurface = new Surface({ 
 		size: [640, ],
@@ -91,7 +89,7 @@ var columns = 20;
 					transform: Transform.translate( i * (beadResolution * spacing), row) 
 				});
 
-				// var initialTime = Date.now();
+				var initialTime = Date.now();
 				// beadmodifier.setTransform({
 				// 		transform: Transform.rotateY(.001 * (Date.now() - initialTime)) 
 				// 	});
@@ -104,13 +102,6 @@ var columns = 20;
 				});
 
 				mainContext.add(beadmodifier).add(Bead);
-				// Bead.on('click', function() {
-				// 	beadmodifier.setTransform(
-				// 		Transform.translate(Math.random()*600, Math.random()*600, 2),
-				// 		{ duration: 500 } 
-				// 	)
-				// });
-
 				beadCollectorColumn.push(Bead);
 		};
 		beadCollector.push(beadCollectorColumn);
@@ -299,38 +290,32 @@ createRandomBlocks()
 		for(var i = 0; i < 50; i++) {
 			var randY = randomIntFromInterval(0, rows - 1)
 			var randX = randomIntFromInterval(0, columns - 1)
-			foodCollection.push([randY, randX])
-			beadCollector[randY][randX].setProperties({
-				borderRadius: "100%",
-				backgroundColor: "pink",
-				backgroundImage: 'http://effextures.com/wp-content/uploads/2013/08/Star.jpg',
-				boxShadow: "0px 0px 30px white",
-			})
+			var condition = "false"
+			for(var j = 0; j < blockCollection.length; j++) {
+				if(blockCollection[j][0] == randY && blockCollection[j][1 == randX]) { condition = "true" }
+			}
+
+			if(condition == "false") {
+				foodCollection.push([randY, randX])
+				beadCollector[randY][randX].setProperties({
+					borderRadius: "100%",
+					backgroundColor: "white",
+					backgroundImage: 'http://effextures.com/wp-content/uploads/2013/08/Star.jpg',
+					boxShadow: "0px 0px 30px white",
+				})
+			}
 		}
 	}
-	// createRandomFoods()
+
+	createRandomFoods()
 
 //Time the animation
 	//first way
 	var imageAnimationSwitch = 0;
 	var ts = 270;
 
-
 	// Timer.every(function() {
 	// 	if(imageAnimationSwitch == 0) { $('#bashImage').removeClass("animated jello infinite"); imageAnimationSwitch = 1}
 	// 	else { $('#bashImage').addClass("animated jello infinite"); imageAnimationSwitch = 0}
 	// }, ts)
-
-	//second way
-	//look at the css file.
-
-
-
-
-
-
-
-// Timer.every(function() { return createRandomBlocks() }, 100) 
-// createRandomBlocks()
-// DELETE: beadCollector[ point[0] ][ point[1] ].render = function() { return null }
 

@@ -20,7 +20,7 @@
 
 <body>
 	<script type="text/javascript" src="js/others.js"></script>
-  <script id="mainjs" type="text/javascript" src="js/main_mass_random_blocks.js"></script>
+  <script id="mainjs" type="text/javascript" src="js/main_game_with_food.js"></script>
 </body>
 
 
@@ -28,31 +28,26 @@
 <div id="Menu" style="-webkit-transform: translateX(800px); padding: 1em;">
 	<h1>Welcome, to my playground.</h1>
 	<p id="name"> Fayadh al-Mosawi, Web Developer. </p><br>
-	<span id="ibashDescription"> this is the <em>ibash</em> project, an experimental, dynamic, <br> personal space  concept built for the web. <br><br> <hr> <span id="clickIbash"> Click on ibash to proceed.</span> </span>
+	<span id="ibashDescription"> this is the <em>ibash</em> project, an experimental, dynamic, <br> personal space  concept built for the web. <br><br> <hr> <span id="clickIbash"> Click on ibash to proceed. <br> or you can play BOT.g on the left.</span> </span>
 
  <br><br><br><br> <br><br><br><br>
 <div class="console">
-	<span id="cd2"> <img id="bashImage" src="images/ibash_title2.png" height="80%" style="position: absolute;" class="animated jello infinite"/> </span>
+	<span id="cd2"> <img id="bashImage" src="images/ibash_title2.png" height="80%" style="position: absolute;" class=""/> </span>
 	<span id="cd1"> <em><strong> ~ibash </strong> </em> </span>
 
+<form>	
 	<input id="cd1" placeholder="Hi! :) Confused? type: open world"></input><br>
-	<button id="hiddenButton" type="submit" action="" style="visibility: hidden;"> enter</button>
-	
+	<input id="hiddenButton" type="submit" action="" style="display: none;"></button>
+</form>
 
 	<span id="cdexample"><em> ex: open world, botg. </em></span>
 	<hr>
 
-	<p id="subContentContainer"> 
-		docs: <br>
+	<div id="subContentContainer" style="overflow: auto;"> 
 		<table>
-			<tr>
-				<td><strong>open world:</strong></td> <td>the first thing to remember. opens the bio page. </td>
-			</tr>
-			<tr>
-				<td><strong>go</strong></td> <td>the first thing to remember. opens the bio page. </td>
-			</tr>
+
 		</table>
-	</p>
+	</div>
 
 	<!-- make a formula for automating the docs -->
 
