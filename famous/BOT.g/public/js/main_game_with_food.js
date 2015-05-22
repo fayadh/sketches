@@ -292,9 +292,9 @@ createRandomBlocks()
 			var randX = randomIntFromInterval(0, columns - 1)
 			var condition = "false"
 			for(var j = 0; j < blockCollection.length; j++) {
-				if(blockCollection[j][0] == randY && blockCollection[j][1 == randX]) { condition = "true" }
+				if(blockCollection[j][0] == randY && blockCollection[j][1] == randX) { condition = "true" }
 			}
-
+			console.log(condition)
 			if(condition == "false") {
 				foodCollection.push([randY, randX])
 				beadCollector[randY][randX].setProperties({
