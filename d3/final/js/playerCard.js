@@ -13,17 +13,17 @@ $(function(){
 		{
 		"GamesPlayed"     : 4,
 		"MinionsKilled"   : 133.11,
-		"GoldEarned"      : 23,
+		"GoldEarned"      : 13737,
 		"KillDeath_Ratio" : 0.89,
 		"Assists"         : 7.69,
 		"DamageDealt"     : 147945,
 		"DamageTaken"     : 26054,
-		"color"           : RandomColor()
+		"color"           : RandomColor(),
 		},
 		{
 		"GamesPlayed"     : 4,
 		"MinionsKilled"   : 173.21,
-		"GoldEarned"      : 50,
+		"GoldEarned"      : 8737,
 		"KillDeath_Ratio" : 0.89,
 		"Assists"         : 7.69,
 		"DamageDealt"     : 147945,
@@ -33,7 +33,7 @@ $(function(){
 		{
 		"GamesPlayed"     : 4,
 		"MinionsKilled"   : 33.16,
-		"GoldEarned"      : 150,
+		"GoldEarned"      : 4737,
 		"KillDeath_Ratio" : 0.89,
 		"Assists"         : 7.69,
 		"DamageDealt"     : 147945,
@@ -98,21 +98,21 @@ $(function(){
 		d3.select(".playerInfo" + i)
 			.append("div")
 				.attr("class", "playerBio" + i + " large-12 columns")
-				.text("playerBio")
+				.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at bibendum metus, nec rhoncus eros. In tristique scelerisque sagittis. Suspendisse venenatis ullamcorper massa, ut facilisis mauris bibendum sed. Ut vestibulum aliquam felis, a feugiat justo porta id. Pellentesque et justo quam.")
 
 
 		d3.select(".playerCard" + i)
 			.append("div")
 				.attr("class", "playerStats" + i + " large-8 columns")
 				
-		var skillname = ['MinionsKilled','GoldEarned']
+		var skillname = ['MinionsKilled','GoldEarned', "KillDeath_Ratio", "Assists"]
 		for(var j = 0; j < skillname.length; j++) {
 			d3.select(".playerStats" + i)
 				.append("div")
 					.attr("class", "playerSkillContainer" + j + " large-12 columns")
 					.append("div")
 						.attr("class", "playerSkillLabel" + j + " large-2 columns")
-							.text("label")
+							.text(skillname[j])
 							.style("background-Color", "red")
 
 			siloarray = [playerData[i]]
@@ -128,7 +128,10 @@ $(function(){
 					.enter()
 					.append("div")
 						.attr("class", "playerBar")
-						.style("width", function(d) { return d[skillname[j]] + "px" })
+						.style("width", function(d) { 
+							console.log(skillname[j])
+							return d[skillname[j]] + "px" 
+						})
 						.style("height", "25px")
 						.style("background-Color", function(d) { return d.color })
 						.style("border-radius", "0 10px 10px 0")

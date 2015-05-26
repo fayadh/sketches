@@ -144,32 +144,16 @@ var columns = 40;
 
 	// DeleteLine(StraightLine('ver', 2, 10, 5));
 	// DeleteLine(StraightLine('ver', 2, 10, 3))
-//DRAW LINE FUNCTION 
-	function DrawLine(line) {
-		length = line.length
-		for(var j = 0; j < length; j++) {
-			point = line[j];
-			beadCollector[ point[0] ][ point[1] ].setProperties({
-				backgroundColor: 'white',
-				boxShadow: '10px 5px 5px green'
-			});
-		};
-	};
-// --OUTPUT -- //
-	function Draw(thing) {
-		for(i = 0; i < thing.length; i++) {
-			// console.log(thing[i])
-			DrawLine(thing[i]);
-		};
-	};
+
 
 //IMAGE DB
 	//BORDER
 		var Border1 = [
-			StraightLine2("ver", [0, columns - 1], columns),
-			StraightLine2("ver", [0, 0], columns),
-			StraightLine2("hor", [0, 0], rows),
-			StraightLine2("hor", [rows - 1, 0], rows),
+			{mode: "ver", start: [0, rows - 1], length: rows},
+			{mode: "ver", start: [0, 0], length: rows},
+
+			{mode: "hor", start: [columns - 1, 0], length: columns},
+			{mode: "hor", start: [0, 0], length: columns},
 		]
 
 	//CAPITAL LETTERS DB
@@ -530,6 +514,27 @@ var columns = 40;
 			{mode: "hor", start: [8, 0], length: 6},
 			{mode: "hor", start: [9, 0], length: 6},
 		]
+
+//DRAW LINE FUNCTION 
+// --OUTPUT -- //
+	function Draw(thing) {
+		for(i = 0; i < thing.length; i++) {
+			// console.log(thing[i])
+			DrawLine(thing[i]);
+		};
+	};
+
+	function DrawLine(line) {
+		length = line.length
+		for(var j = 0; j < length; j++) {
+			point = line[j];
+			beadCollector[ point[0] ][ point[1] ].setProperties({
+				backgroundColor: 'white',
+				boxShadow: '10px 5px 5px green'
+			});
+		};
+	};
+
 function newDraw(input) {
 	for(var i = 0; i < input.length; i++) {
 		array = [ StraightLine2(input[i].mode, input[i].start, input[i].length) ];
@@ -567,7 +572,7 @@ flashingBeads(beadCollector)
 		newDraw(draw);
 	});
 
-
+newDraw(Border1)
 
 
 // AGENDA 
