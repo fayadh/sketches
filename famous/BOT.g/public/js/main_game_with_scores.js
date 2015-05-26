@@ -124,7 +124,6 @@ var columns = 19;
 startY = 1;
 startX = 1;
 
-
 var travelPath = []
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -300,8 +299,8 @@ var travelPath = []
 
 //RANDOM BEAD DELETER 
 var blockCollection = []
-function createRandomBlocks() {
-	for(var i = 0; i < 50; i++) {
+function createRandomBlocks(number) {
+	for(var i = 0; i < number; i++) {
 		var randY = randomIntFromInterval(0, rows - 1)
 		var randX = randomIntFromInterval(0, columns - 1)
 		blockCollection.push([randY, randX])
@@ -768,15 +767,6 @@ function Draw_Object(input) {
 			{mode: "hor", start: [9, 0], length: 6},
 		]	
 
-///////////////////////////////////////////////////////////////////////////////////////////
-
-// Objects To Be Drawn 
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
-Draw_Object(Border1);
-createRandomFoods();
-createRandomBlocks();
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -789,12 +779,13 @@ createRandomBlocks();
 // assess all possible empty spaces around bot
 // take random step
 
+function build_bots(color_trail) {
+
 var bot_startX = 10;
 var bot_startY = 10;
-var bot_speed = 5;
+var bot_speed = 1;
 var belongs = 0;
 var rungame = 1;
-var count = 0;
 
 Timer.every(function() {
 	if(rungame == 1) {
@@ -824,14 +815,15 @@ Timer.every(function() {
 						stop()
 						// console.log("error")
 					} else if (blocks_to_be_analyzed[i][0] <= 0) {
+						//watch out for impossible values
 						error++
 					} else if (blocks_to_be_analyzed[i][1] <= 0) {
 						error++
+						//watch out for impossible values
 					}
 				}
 
 				// console.log("current location is: " + bot_startX + ',' + bot_startY)
-				
 				if(error >= 1) {
 					// console.log(error)
 			  } else { 
@@ -841,15 +833,15 @@ Timer.every(function() {
 
 			// console.log(possible_moves.length)
 
-			//make move
+			//make random move
 			var next_move_index = randomIntFromInterval(0, possible_moves.length - 1)
 			var x = possible_moves[next_move_index]
 
 			// console.log("New Coordinates:"+x[0]+","+x[1]+" ; current loction:" + bot_startX + "," + bot_startY)
 
-			// reset former bead
+			// reset previous bead
 			beadCollector[bot_startX][bot_startY].setProperties({
-		  	backgroundColor: getRandomColor(),
+		  	backgroundColor: color_trail,
 		  	backgroundImage: "none",
 		  	boxShadow: "0px 0px 10px yellow",
 		  	backgroundSize: "100%"
@@ -864,30 +856,27 @@ Timer.every(function() {
 			})		  
 
 			var user_current_location = [startX, startY]
-		 //  if(count > 1) {
-		 //  	debugger
-			// }
-			
-			
+
 			//update current position
 			bot_startX = x[0];
 			bot_startY = x[1];
 
-			if(user_current_location[0] == bot_startX && user_current_location[1] == bot_startY) {
-				console.log("HIT")
-				//turn game off
-				rungame = 0;
-				window.alert("Game Over!")
-			}
-
-			// debugger
-
-			//update count
-			count++
+			//if the bot hits the user, game is temrinated.
+			// if(user_current_location[0] == bot_startX && user_current_location[1] == bot_startY) {
+			// 	console.log("HIT")
+			// 	//turn game off
+			// 	rungame = 0;
+			// 	window.alert("Game Over!")
+			// }
 		}
 	}
 	, bot_speed)
+}
 
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Animations
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -900,4 +889,23 @@ Timer.every(function() {
 	// 	if(imageAnimationSwitch == 0) { $('#bashImage').removeClass("animated jello infinite"); imageAnimationSwitch = 1}
 	// 	else { $('#bashImage').addClass("animated jello infinite"); imageAnimationSwitch = 0}
 	// }, ts)
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Renderables
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+Draw_Object(Border1);
+createRandomFoods();
+// createRandomBlocks(100);
+
+//build X number of bots
+var number_of_bots = 10;
+for(i = 0; i < number_of_bots; i++) {
+	build_bots(getRandomColor())
+}
+
+
+
 
