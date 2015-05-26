@@ -10,6 +10,12 @@ var beadResolution = 20;
 var beadCollector = [];
 var spacing = 2;
 
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// General Functions
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 //RANDOM COLOR
 		function getRandomColor() {
 		  var letters = '0123456789ABCDEF'.split('');
@@ -27,6 +33,12 @@ function randomIntFromInterval(min,max)
 
 var rows = 19;
 var columns = 19;
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Main Matrix 
+
+////////////////////////////////////////////////////////////////////////////////////////////
 
 //BACKGROUND
 	var backgroundSurface = new Surface({ 
@@ -51,6 +63,7 @@ var columns = 19;
 	var botgImageStateModifier = new StateModifier ({
 				
 	});
+
 //content container
 	var contentSurface = new Surface({ 
 		size: [640, ],
@@ -64,8 +77,6 @@ var columns = 19;
 	});
 
 	mainContext.add(contentStateModifier).add(contentSurface);
-
-
 
 //MATRIX
 	for(j = 0; j < rows; j++) { 
@@ -109,166 +120,182 @@ var columns = 19;
 
 //RANDOM EMPTY CELLS
 
-
-startX = 0;
-startY = 0;
+//STARTING POINT
+startX = 1;
+startY = 1;
 
 var travelPath = []
 
-Engine.on('keydown', function(e) {
-	console.log(e)
-	if (e.which === 39) {
-		//next cell
-		var nextCell = startY + "," + (startX + 1)
+///////////////////////////////////////////////////////////////////////////////////////////
 
-		//where am I? 
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-		
-		//test if the next move hits a block
-		var condition = "false"
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				condition = "true";
-				console.log(condition)
+// MAIN USER BOT
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+	Engine.on('keydown', function(e) {
+		console.log(e)
+		if (e.which === 39) {
+			//next cell
+			var nextCell = startY + "," + (startX + 1)
+
+			//where am I? 
+			console.log("current cell is: " + startY + "," + startX)
+			console.log("next cell is: " + nextCell)
+			
+			//test if the next move hits a block
+			var condition = "false"
+			for(var i = 0; i < blockCollection.length; i++) {
+				if (blockCollection[i] == nextCell) {
+					condition = "true";
+					console.log(condition)
+				}
+			}
+
+			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+			if(condition == "false") { 
+				//store old coordinate
+				travelPath.push([startY, startX])
+				//Reset previous bead
+				beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "yellow",
+			  	backgroundImage: "none"
+			  });
+				//RIGHT
+				startX++;
+			  beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "blue",
+			  	boxShadow: "0px 0px 10px yellow",
+			  	backgroundImage: "url('images/bot.gif')",
+			  	backgroundSize: "100%"
+				})
+			} else {
+				console.log("cant")
+			}
+
+		} else if(e.which === 38) {
+			//next cell
+			var nextCell = (startY - 1) + "," + startX
+
+			//where am I?
+			console.log("current cell is: " + startY + "," + startX)
+			console.log("next cell is: " + nextCell)
+
+			//test if the next move hits a block
+			var condition = "false"
+			for(var i = 0; i < blockCollection.length; i++) {
+				if (blockCollection[i] == nextCell) {
+					condition = "true";
+					console.log(condition)
+				}
+			}
+
+			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+			if(condition == "false") { 
+				//store old coordinate
+				travelPath.push([startY, startX])
+				//Reset previous bead
+				beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "yellow",
+			  	backgroundImage: "none"
+			  });
+				//UP
+				startY = startY - 1
+				beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "blue",
+			  	boxShadow: "0px 0px 10px yellow",
+			  	backgroundImage: "url('images/bot.gif')",
+			  	backgroundSize: "100%"
+				})
+			}
+		} else if(e.which === 40) {
+			//next cell
+			var nextCell = (startY + 1) + "," + startX
+
+			//where am I?
+			console.log("current cell is: " + startY + "," + startX)
+			console.log("next cell is: " + nextCell)
+
+			//test if the next move hits a block
+			var condition = "false"
+			for(var i = 0; i < blockCollection.length; i++) {
+				if (blockCollection[i] == nextCell) {
+					condition = "true";
+					console.log(condition)
+				}
+			}
+
+			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+			if(condition == "false") {
+				//store old coordinate
+				travelPath.push([startY, startX])
+
+				//Reset previous bead
+				beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "yellow",
+			  	backgroundImage: "none"
+			  });
+				//DOWN
+				startY++;
+				beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "blue",
+			  	boxShadow: "0px 0px 10px yellow",
+			  	backgroundImage: "url('images/bot.gif')",
+			  	backgroundSize: "100%"
+				})
+			} else {
+				console.log("cant")
 			}
 		}
+	});
 
-		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-		if(condition == "false") { 
-			//store old coordinate
-			travelPath.push([startY, startX])
-			//Reset previous bead
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "yellow",
-		  	backgroundImage: "none"
-		  });
-			//RIGHT
-			startX++;
-		  beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "blue",
-		  	boxShadow: "0px 0px 10px yellow",
-		  	backgroundImage: "url('images/bot.gif')",
-		  	backgroundSize: "100%"
-			})
-		} else {
-			console.log("cant")
-		}
+	Engine.on('keydown', function(e) {
+		 if(e.which === 37) {
+			//next cell
+			var nextCell = startY + "," + (startX - 1)
 
-	} else if(e.which === 38) {
-		//next cell
-		var nextCell = (startY - 1) + "," + startX
+			//where am I? 
+			console.log("current cell is: " + startY + "," + startX)
+			console.log("next cell is: " + nextCell)
+			
+			//test if the next move hits a block
+			var condition = "false"
+			for(var i = 0; i < blockCollection.length; i++) {
+				if (blockCollection[i] == nextCell) {
+					condition = "true";
+					console.log(condition)
+				}
+			}
 
-		//where am I?
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-
-		//test if the next move hits a block
-		var condition = "false"
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				condition = "true";
-				console.log(condition)
+			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+			if(condition == "false") { 
+				//store old coordinate
+				travelPath.push([startY, startX])
+				//Reset previous bead
+				beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "yellow",
+			  	backgroundImage: "none"
+			  });
+				//LEFT
+				startX = startX - 1
+				beadCollector[startY][startX].setProperties({
+			  	backgroundColor: "blue",
+			  	boxShadow: "0px 0px 10px yellow",
+			  	backgroundImage: "url('images/bot.gif')",
+			  	backgroundSize: "100%" 
+				})
 			}
 		}
+	});
 
-		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-		if(condition == "false") { 
-			//store old coordinate
-			travelPath.push([startY, startX])
-			//Reset previous bead
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "yellow",
-		  	backgroundImage: "none"
-		  });
-			//UP
-			startY = startY - 1
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "blue",
-		  	boxShadow: "0px 0px 10px yellow",
-		  	backgroundImage: "url('images/bot.gif')",
-		  	backgroundSize: "100%"
-			})
-		}
-	} else if(e.which === 40) {
-		//next cell
-		var nextCell = (startY + 1) + "," + startX
 
-		//where am I?
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
 
-		//test if the next move hits a block
-		var condition = "false"
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				condition = "true";
-				console.log(condition)
-			}
-		}
 
-		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-		if(condition == "false") {
-			//store old coordinate
-			travelPath.push([startY, startX])
 
-			//Reset previous bead
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "yellow",
-		  	backgroundImage: "none"
-		  });
-			//DOWN
-			startY++;
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "blue",
-		  	boxShadow: "0px 0px 10px yellow",
-		  	backgroundImage: "url('images/bot.gif')",
-		  	backgroundSize: "100%"
-			})
-		} else {
-			console.log("cant")
-		}
-	}
-});
+///////////////////////////////////////////////////////////////////////////////////////////
 
-Engine.on('keydown', function(e) {
-	 if(e.which === 37) {
-		//next cell
-		var nextCell = startY + "," + (startX - 1)
+// MAIN USER BOT
 
-		//where am I? 
-		console.log("current cell is: " + startY + "," + startX)
-		console.log("next cell is: " + nextCell)
-		
-		//test if the next move hits a block
-		var condition = "false"
-		for(var i = 0; i < blockCollection.length; i++) {
-			if (blockCollection[i] == nextCell) {
-				condition = "true";
-				console.log(condition)
-			}
-		}
-
-		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-		if(condition == "false") { 
-			//store old coordinate
-			travelPath.push([startY, startX])
-			//Reset previous bead
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "yellow",
-		  	backgroundImage: "none"
-		  });
-			//LEFT
-			startX = startX - 1
-			beadCollector[startY][startX].setProperties({
-		  	backgroundColor: "blue",
-		  	boxShadow: "0px 0px 10px yellow",
-		  	backgroundImage: "url('images/bot.gif')",
-		  	backgroundSize: "100%" 
-			})
-		}
-	} 
-})
+////////////////////////////////////////////////////////////////////////////////////////////
 
 //RANDOM BEAD DELETER 
 var blockCollection = []
@@ -285,8 +312,6 @@ function createRandomBlocks() {
 	}
 }
 
-createRandomBlocks()
-
 //Random food generator
 //we need a function to determine selectable seeds.
 	var foodCollection = []
@@ -300,13 +325,13 @@ createRandomBlocks()
 			for(var j = 0; j < blockCollection.length; j++) {
 				if(blockCollection[j][0] == randY && blockCollection[j][1] == randX) { condition = "true" }
 			}
-			console.log(condition)
+			// console.log(condition)
 			if(condition == "false") {
 				i++;
 				foodCollection.push([randY, randX]);
 				beadCollector[randY][randX].setProperties({
 					borderRadius: "100%",
-					backgroundColor: "white",
+					backgroundColor: "transparent",
 					backgroundImage: 'http://effextures.com/wp-content/uploads/2013/08/Star.jpg',
 					boxShadow: "0px 0px 30px white",
 				})
@@ -316,6 +341,7 @@ createRandomBlocks()
 
 
 ///
+var borderCollection = [];
 
 	function DrawLine(line) {
 		length = line.length
@@ -323,10 +349,14 @@ createRandomBlocks()
 			point = line[j];
 			beadCollector[ point[0] ][ point[1] ].setProperties({
 				backgroundColor: 'white',
-				boxShadow: '10px 5px 5px green'
+				boxShadow: '10px 5px 5px pink',
+				borderRadius: '0%'
 			});
+			blockCollection.push([point[0], point[1]]);
+			borderCollection.push([point[0], point[1]])
 		};
 	};
+
 // --OUTPUT -- //
 	function Draw(thing) {
 		for(i = 0; i < thing.length; i++) {
@@ -355,10 +385,10 @@ createRandomBlocks()
 
 //DRAW
 function Draw_Object(input) {
-	console.log(input)
+	// console.log(input)
 	for(var i = 0; i < input.length; i++) {
 		array = [ StraightLine(input[i].mode, input[i].start, input[i].length) ];
-		console.log(array)
+		// console.log(array)
 		Draw(array); //Draw expects an array
 	};
 }
@@ -369,7 +399,7 @@ function Draw_Object(input) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-//BORDERS
+// | BORDERS
 		var Border1 = [
 			{mode: "ver", start: [0, rows - 1], length: rows},
 			{mode: "ver", start: [0, 0], length: rows},
@@ -377,9 +407,7 @@ function Draw_Object(input) {
 			{mode: "hor", start: [columns - 1, 0], length: columns},
 			{mode: "hor", start: [0, 0], length: columns},
 		]
-
-		
-//LETTERS
+// | LETTERS
 	//CAPITAL LETTERS DB
 		var A = [
 			{mode: "hor", start: [0, 0], length: 6},
@@ -746,7 +774,8 @@ function Draw_Object(input) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 Draw_Object(Border1);
-createRandomFoods()
+createRandomFoods();
+createRandomBlocks();
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -754,8 +783,86 @@ createRandomFoods()
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+// Stupid autobot: 
+// All it does is avoid blocks all the time
 
+// assess all possible empty spaces around bot
+// take random step
+
+var bot_startX = 10;
+var bot_startY = 10;
+var bot_speed = 2;
+var belongs = 0;
+
+Timer.every(function() {
 	
+	//bot current locaiton
+	var bot_location = [bot_startX, bot_startY];
+
+	//always check for blocks on all directions of the block
+	var blocks_to_be_analyzed = [ 
+	[bot_startX, bot_startY + 1], 
+	[bot_startX, bot_startY - 1], 
+	[bot_startX + 1, bot_startY], 
+	[bot_startX - 1, bot_startY]
+	]
+
+	console.log(blocks_to_be_analyzed)
+	//analyze for possble moves and then print the array
+	var possible_moves = []
+
+	for(var i = 0; i < 4; i++) {
+			var error = 0
+
+			console.log("awarness: " + i )
+			console.log
+
+			//creating possible moves
+			for(var p = 0; p < blockCollection.length; p++) {
+				if (blocks_to_be_analyzed[i][0] == blockCollection[p][0] && blocks_to_be_analyzed[i][1] == blockCollection[p][1]) {
+					//if you catch an error, log it.
+					error++
+					stop()
+					// console.log("error")
+				} else if (blocks_to_be_analyzed[i][0] <= 0) {
+					error++
+				} else if (blocks_to_be_analyzed[i][1] <= 0) {
+					error++
+				}
+			}
+
+			console.log("current location is: " + bot_startX + ',' + bot_startY)
+			console.log(error)
+			if(error >= 1) {
+				console.log("problem")
+		  } else { 
+		  	possible_moves.push(blocks_to_be_analyzed[i])
+		  }
+		}
+
+
+		console.log(possible_moves.length)
+
+			var next_move_index = randomIntFromInterval(0, possible_moves.length - 1)
+			//make move
+			var x = possible_moves[next_move_index]
+			// console.log(x)
+
+		  beadCollector[x[0]][x[1]].setProperties({
+		  	backgroundColor: "blue",
+		  	boxShadow: "0px 0px 10px yellow",
+		  	backgroundImage: "url('images/bot.gif')",
+		  	backgroundSize: "100%"
+			})
+
+			bot_startX = x[0];
+			bot_startY = x[1];
+		}
+	, bot_speed)
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 //Time the animation
 	//first way
 	var imageAnimationSwitch = 0;

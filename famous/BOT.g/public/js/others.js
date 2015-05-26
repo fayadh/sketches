@@ -67,6 +67,8 @@ $(function() {
 		$('#clickIbash').toggle(150);
 	})
 
+	//fix the score-form display options in index.erb
+	$('#score-form').children().css("display", "inline-block !important"); 
 })
 	
 // $(function(){

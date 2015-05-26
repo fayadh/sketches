@@ -13,22 +13,64 @@
   <script type="text/javascript" src="http://code.famo.us/lib/requestAnimationFrame.js"></script>
   <link rel="stylesheet" type="text/css" href="http://code.famo.us/famous/0.3/famous.css" />
   <script type="text/javascript" src="http://code.famo.us/famous/0.3/famous-global.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <link rel="stylesheet" href="stylesheets/app.css">
   <link rel="stylesheet" href="stylesheets/animate.css">
 
-	<script type="text/javascript" src="jquerymy-1.1.4"></script>
-	<script type="text/javascript" src="sugar.min.js"></script>
+	<script src="js/sugar.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="js/jquerymy-1.1.4.min.js"></script>
 </head>
 
 <body>
 	<script type="text/javascript" src="js/others.js"></script>
-  <script id="mainjs" type="text/javascript" src="js/main_game_with_scores.js"></script>
+  <script id="mainjs" src="js/main_game_with_scores.js"></script>
 
 <div id="Menu" style="-webkit-transform: translateX(800px); padding: 1em;">
 	<h1>Welcome, to my playground.</h1>
 	<p id="name"> Fayadh al-Mosawi, Web Developer. </p><br>
-	<span id="ibashDescription"> this is the <em>ibash</em> project, an experimental, dynamic, <br> personal space  concept built for the web. <br><br> <hr> <span id="clickIbash"> Click on ibash to proceed. <br> or you can play BOT.g on the left.</span> </span>
+	<span id="ibashDescription"> this is the <em>ibash</em> project, an experimental, dynamic, <br> personal space  concept built for the web. <br><br> <hr> <span id="clickIbash"> Click on ibash to proceed. <br> or you can play BOT.g on the left. <br><br>
+
+	<em><strong>SCORE</strong><em>: 
+	
+	<div id="score-form">
+		<form id="form">
+		</form>
+	</div>
+	
+	<script>
+		// Source data
+		var person = { 
+		  name: "Ann", 
+		  metrics:{ age:"25" } 
+		};
+		 
+		// Manifest
+		var manifest = {
+		  
+		  //Default data  
+		  data: { name:"", metrics:{ age:"" }},
+		  
+		  // Init function  
+		  init: function ($node, runtime) {
+		    $node.html(
+		      '<h4>Simplest form</h4>'+
+		      '<div><input id="name" type="text" placeholder="Name"/></div>' +
+		      '<div><input id="age" type="number" placeholder="Age"/></div>'
+		    ).css("display", "block-inline");
+		  },
+		  
+		  // Bindings
+		  ui: {
+		    "#name": { bind: "name" },
+		    "#age" : { bind: "metrics.age" }
+		  }
+		};
+		 
+		// Init $.my over DOM node
+		$("#form").my( manifest, person );
+	</script>
+
+	</span></span>
 
 
 	<br><br><br><br> <br><br><br><br>
