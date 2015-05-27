@@ -31,8 +31,8 @@ function randomIntFromInterval(min,max)
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-var rows = 19;
-var columns = 19;
+var rows = 20;
+var columns = 20;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -293,7 +293,7 @@ var travelPath = []
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// MAIN USER BOT
+// FUNCTIONS
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -343,30 +343,6 @@ function createRandomBlocks(number) {
 ///
 var borderCollection = [];
 
-	function DrawLine(line) {
-		length = line.length
-		for(var j = 0; j < length; j++) {
-			point = line[j];
-			beadCollector[ point[0] ][ point[1] ].setProperties({
-				backgroundColor: 'white',
-				boxShadow: '10px 5px 5px pink',
-				borderRadius: '0%'
-			});
-			blockCollection.push([point[0], point[1]]);
-			borderCollection.push([point[0], point[1]])
-		};
-	};
-
-// --OUTPUT -- //
-	function Draw(thing) {
-		for(i = 0; i < thing.length; i++) {
-			// console.log(thing[i])
-			DrawLine(thing[i]);
-		};
-	};
-
-//IMAGE DB
-
 //STRAIGHT LINE FUNCTION
 	function StraightLine(mode, startingPoint, length) {
 		array = [];
@@ -381,17 +357,48 @@ var borderCollection = [];
 		return array;
 	};
 
-	
+
+	function DrawLine(line) {
+		length = line.length
+		for(var j = 0; j < length; j++) {
+			point = line[j];
+			beadCollector[ point[0] ][ point[1] ].setProperties({
+				backgroundColor: 'transparent',
+				// boxShadow: '10px 5px 5px pink',
+				borderRadius: '0%'
+			});
+			blockCollection.push([point[0], point[1]]);
+			borderCollection.push([point[0], point[1]])
+		};
+	};
+
+	function Draw(thing) {
+		for(i = 0; i < thing.length; i++) {
+			// console.log(thing[i])
+			DrawLine(thing[i]);
+		};
+	};
 
 //DRAW
-function Draw_Object(input) {
-	// console.log(input)
-	for(var i = 0; i < input.length; i++) {
-		array = [ StraightLine(input[i].mode, input[i].start, input[i].length) ];
-		// console.log(array)
-		Draw(array); //Draw expects an array
-	};
-}
+	function Draw_Object(input, starting_point) {
+		//set default starting point to [0, 0]
+		if(starting_point === undefined) {
+			starting_point = [0, 0]
+		}
+	
+		// console.log(input)
+		for(var i = 0; i < input.length; i++) {
+			var point1 = input[i].start[0];
+			var point2 = input[i].start[1];
+			var updated_point1 = point1 + starting_point[0]
+			var updated_point2 = point2 + starting_point[1]
+			var new_start_array = [updated_point1, updated_point2];
+
+			array = [ StraightLine(input[i].mode, new_start_array, input[i].length) ];
+			// console.log(array)
+			Draw(array); //Draw expects an array
+		};
+	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -783,7 +790,7 @@ function build_bots(color_trail) {
 
 var bot_startX = 10;
 var bot_startY = 10;
-var bot_speed = 1;
+var bot_speed = 2;
 var belongs = 0;
 var rungame = 1;
 
@@ -849,7 +856,7 @@ Timer.every(function() {
 
 			//update bead
 		  beadCollector[x[0]][x[1]].setProperties({
-		  	backgroundColor: "blue",
+		  	backgroundColor: color_trail,
 		  	boxShadow: "0px 0px 30px red",
 		  	backgroundImage: "url('images/ibash_bot.png')",
 		  	backgroundSize: "100%"
@@ -892,19 +899,78 @@ Timer.every(function() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// GAMES 
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// TETRIS
+////////////////////////////////////////////////////////////////////////////////////////////
+
+function run_tetris() {
+	var falling_piece;
+	var possible_falling_pieces = {
+	"square": [
+		{mode: "hor", start: [0, 0], length: 2},
+		{mode: "hor", start: [1, 0], length: 2},
+		],
+		"z": [
+		{mode: "hor", start: [0, 1], length: 2},
+		{mode: "hor", start: [1, 0], length: 2},
+		],
+		"pyramid": [
+		{mode: "hor", start: [0, 1], length: 1},
+		{mode: "hor", start: [1, 0], length: 3},
+		],
+		"l": [
+		{mode: "ver", start: [0, 0], length: 3},
+		{mode: "hor", start: [2, 0], length: 2},
+		]
+		};
+
+		// debugger;
+
+	// plot out the shape
+	Draw_Object(possible_falling_pieces.pyramid)
+
+	// write an Timer.every function to make sure it drops every second
+	// write the Engine.on("keydown") functions to make it "shift the squares by one piece"
+	// once any of the bottom blocks hit, it has to stick where it and become a part of the "tetris_block_collection"
+
+	// write the destroy function (upon racking up the right colors)
+	// make sure everything "above it" shifts down
+	// rack up points 
+	
+	}
+
+
+
+run_tetris()
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 // Renderables
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-Draw_Object(Border1);
-createRandomFoods();
+// Draw_Object(Border1);
+
+// // write a function to bring the animation to the center
+// Draw_Object(A, [5,7])
+// createRandomFoods();
 // createRandomBlocks(100);
 
-//build X number of bots
-var number_of_bots = 10;
-for(i = 0; i < number_of_bots; i++) {
-	build_bots(getRandomColor())
-}
+// //build X number of bots
+// var number_of_bots = 10;
+// for(i = 0; i <= number_of_bots; i++) {
+// 	//add more colors to your pleasing. Otherwise, set build_bots argument to randomColor()
+// 	var bot_colors = ["black", "white", "green"]
+// 	var index = randomIntFromInterval(0, bot_colors.length)
+// 	// build_bots(bot_colors[index])
+// 	build_bots(getRandomColor())
+// }
+
+
 
 
 
