@@ -357,6 +357,37 @@ var borderCollection = [];
 		return array;
 	};
 
+	//DRAW
+		function Draw_Object(input, starting_point, rotation) {
+			//set default starting point to [0, 0]
+			if(starting_point === undefined) {
+				starting_point = [0, 0]
+			} else if (rotation === undefined) {
+				rotation = 0;
+			}
+		
+		// console.log(input)
+		for(var i = 0; i < input.length; i++) {
+			var point1 = input[i].start[0];
+			var point2 = input[i].start[1];
+			var updated_point1 = point1 + starting_point[0]
+			var updated_point2 = point2 + starting_point[1]
+			var new_start_array = [updated_point1, updated_point2];
+
+			array = [ StraightLine(input[i].mode, new_start_array, input[i].length) ];
+			// console.log(array)
+			
+			Draw(array); //Draw expects an array
+		};
+	}
+	
+
+	function Draw(thing) {
+		for(i = 0; i < thing.length; i++) {
+			// console.log(thing[i])
+			DrawLine(thing[i]);
+		};
+	};
 
 	function DrawLine(line) {
 		length = line.length
@@ -372,33 +403,7 @@ var borderCollection = [];
 		};
 	};
 
-	function Draw(thing) {
-		for(i = 0; i < thing.length; i++) {
-			// console.log(thing[i])
-			DrawLine(thing[i]);
-		};
-	};
 
-//DRAW
-	function Draw_Object(input, starting_point) {
-		//set default starting point to [0, 0]
-		if(starting_point === undefined) {
-			starting_point = [0, 0]
-		}
-	
-		// console.log(input)
-		for(var i = 0; i < input.length; i++) {
-			var point1 = input[i].start[0];
-			var point2 = input[i].start[1];
-			var updated_point1 = point1 + starting_point[0]
-			var updated_point2 = point2 + starting_point[1]
-			var new_start_array = [updated_point1, updated_point2];
-
-			array = [ StraightLine(input[i].mode, new_start_array, input[i].length) ];
-			// console.log(array)
-			Draw(array); //Draw expects an array
-		};
-	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -787,99 +792,97 @@ var borderCollection = [];
 // take random step
 
 function build_bots(color_trail) {
+	var bot_startX = 10;
+	var bot_startY = 10;
+	var bot_speed = 2;
+	var belongs = 0;
+	var rungame = 1;
 
-var bot_startX = 10;
-var bot_startY = 10;
-var bot_speed = 2;
-var belongs = 0;
-var rungame = 1;
+	Timer.every(function() {
+		if(rungame == 1) {
+			//bot current locaiton
+			var bot_location = [bot_startX, bot_startY];
 
-Timer.every(function() {
-	if(rungame == 1) {
-		//bot current locaiton
-		var bot_location = [bot_startX, bot_startY];
+			//always check for blocks on all directions of the block
+			var blocks_to_be_analyzed = [ 
+			[bot_startX, bot_startY + 1], 
+			[bot_startX, bot_startY - 1], 
+			[bot_startX + 1, bot_startY], 
+			[bot_startX - 1, bot_startY]
+			]
 
-		//always check for blocks on all directions of the block
-		var blocks_to_be_analyzed = [ 
-		[bot_startX, bot_startY + 1], 
-		[bot_startX, bot_startY - 1], 
-		[bot_startX + 1, bot_startY], 
-		[bot_startX - 1, bot_startY]
-		]
+			//analyze for possble moves and then print the array
+			var possible_moves = []
 
-		//analyze for possble moves and then print the array
-		var possible_moves = []
+			for(var i = 0; i < 4; i++) {
+					var error = 0
+					// console.log("awarness: " + i )
 
-		for(var i = 0; i < 4; i++) {
-				var error = 0
-				// console.log("awarness: " + i )
-
-				//creating possible moves
-				for(var p = 0; p < blockCollection.length; p++) {
-					if (blocks_to_be_analyzed[i][0] == blockCollection[p][0] && blocks_to_be_analyzed[i][1] == blockCollection[p][1]) {
-						//if you catch an error, log it.
-						error++
-						stop()
-						// console.log("error")
-					} else if (blocks_to_be_analyzed[i][0] <= 0) {
-						//watch out for impossible values
-						error++
-					} else if (blocks_to_be_analyzed[i][1] <= 0) {
-						error++
-						//watch out for impossible values
+					//creating possible moves
+					for(var p = 0; p < blockCollection.length; p++) {
+						if (blocks_to_be_analyzed[i][0] == blockCollection[p][0] && blocks_to_be_analyzed[i][1] == blockCollection[p][1]) {
+							//if you catch an error, log it.
+							error++
+							stop()
+							// console.log("error")
+						} else if (blocks_to_be_analyzed[i][0] <= 0) {
+							//watch out for impossible values
+							error++
+						} else if (blocks_to_be_analyzed[i][1] <= 0) {
+							error++
+							//watch out for impossible values
+						}
 					}
+
+					// console.log("current location is: " + bot_startX + ',' + bot_startY)
+					if(error >= 1) {
+						// console.log(error)
+				  } else { 
+				  	possible_moves.push(blocks_to_be_analyzed[i])
+				  }
 				}
 
-				// console.log("current location is: " + bot_startX + ',' + bot_startY)
-				if(error >= 1) {
-					// console.log(error)
-			  } else { 
-			  	possible_moves.push(blocks_to_be_analyzed[i])
-			  }
+				// console.log(possible_moves.length)
+
+				//make random move
+				var next_move_index = randomIntFromInterval(0, possible_moves.length - 1)
+				var x = possible_moves[next_move_index]
+
+				// console.log("New Coordinates:"+x[0]+","+x[1]+" ; current loction:" + bot_startX + "," + bot_startY)
+
+				// reset previous bead
+				beadCollector[bot_startX][bot_startY].setProperties({
+			  	backgroundColor: color_trail,
+			  	backgroundImage: "none",
+			  	boxShadow: "0px 0px 10px yellow",
+			  	backgroundSize: "100%"
+				})
+
+				//update bead
+			  beadCollector[x[0]][x[1]].setProperties({
+			  	backgroundColor: color_trail,
+			  	boxShadow: "0px 0px 30px red",
+			  	backgroundImage: "url('images/ibash_bot.png')",
+			  	backgroundSize: "100%"
+				})		  
+
+				var user_current_location = [startX, startY]
+
+				//update current position
+				bot_startX = x[0];
+				bot_startY = x[1];
+
+				//if the bot hits the user, game is temrinated.
+				// if(user_current_location[0] == bot_startX && user_current_location[1] == bot_startY) {
+				// 	console.log("HIT")
+				// 	//turn game off
+				// 	rungame = 0;
+				// 	window.alert("Game Over!")
+				// }
 			}
-
-			// console.log(possible_moves.length)
-
-			//make random move
-			var next_move_index = randomIntFromInterval(0, possible_moves.length - 1)
-			var x = possible_moves[next_move_index]
-
-			// console.log("New Coordinates:"+x[0]+","+x[1]+" ; current loction:" + bot_startX + "," + bot_startY)
-
-			// reset previous bead
-			beadCollector[bot_startX][bot_startY].setProperties({
-		  	backgroundColor: color_trail,
-		  	backgroundImage: "none",
-		  	boxShadow: "0px 0px 10px yellow",
-		  	backgroundSize: "100%"
-			})
-
-			//update bead
-		  beadCollector[x[0]][x[1]].setProperties({
-		  	backgroundColor: color_trail,
-		  	boxShadow: "0px 0px 30px red",
-		  	backgroundImage: "url('images/ibash_bot.png')",
-		  	backgroundSize: "100%"
-			})		  
-
-			var user_current_location = [startX, startY]
-
-			//update current position
-			bot_startX = x[0];
-			bot_startY = x[1];
-
-			//if the bot hits the user, game is temrinated.
-			// if(user_current_location[0] == bot_startX && user_current_location[1] == bot_startY) {
-			// 	console.log("HIT")
-			// 	//turn game off
-			// 	rungame = 0;
-			// 	window.alert("Game Over!")
-			// }
 		}
-	}
 	, bot_speed)
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -906,30 +909,65 @@ Timer.every(function() {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 function run_tetris() {
-	var falling_piece;
-	var possible_falling_pieces = {
-	"square": [
-		{mode: "hor", start: [0, 0], length: 2},
-		{mode: "hor", start: [1, 0], length: 2},
-		],
-		"z": [
-		{mode: "hor", start: [0, 1], length: 2},
-		{mode: "hor", start: [1, 0], length: 2},
-		],
-		"pyramid": [
-		{mode: "hor", start: [0, 1], length: 1},
-		{mode: "hor", start: [1, 0], length: 3},
-		],
-		"l": [
-		{mode: "ver", start: [0, 0], length: 3},
-		{mode: "hor", start: [2, 0], length: 2},
-		]
-		};
+	//MAPS
+	//////////////////////////////////////////////////////////
+	var pyramid_map = {
+				"initial_coordinates": [[0,1], [1,0], [1,1], [1,2]],
+				"relationships" : 
+					{"east_to_south" : -1, 
+					"south_to_west" : -1,
+					"west_to_north" : +1,
+					"north_to_east" : +1,
+					}
+			}
 
-		// debugger;
-
+	//REPEATED ALWAYS GOING DOWN
+	/////////////////////////////////////////////////////////
+	Timer.every(function(){
+		//reset old coordinations
+		function reset_old_beads (object) {
+			for (var i = 0; i < object.initial_coordinates.length; i++) {
+				c0 = object.initial_coordinates[i][0]
+				c1 = object.initial_coordinates[i][1]	
+				beadCollector[c0][c1].setProperties({
+					backgroundColor: getRandomColor()
+				})
+			};
+		}
+		var shifted_coordinates = [];
+		function shift_object(object, direction) {
+			var shift = 0;	
+			for (var i = 0; i < object.initial_coordinates.length; i++) {
+				var x = object.initial_coordinates[i][0]
+				var y = object.initial_coordinates[i][1]
+				//update coordinates
+				if(direction == "down") { shift = [x + 1, y]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x + 1, y]; }
+				if(direction == "right") { shift = [x, y + 1]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x, y + 1];  }
+				if(direction == "left") { shift = [x, y - 1]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x, y - 1]; }
+			};
+		}
+		function draw_tetris_object(object) {
+				for(i = 0; i < object.length; i++) {
+					// draw blocks
+					c0 = object[i][0]
+					c1 = object[i][1]
+					beadCollector[c0][c1].setProperties({
+						backgroundColor: "yellow"
+					})
+					blockCollection.push([c0, c1])
+				}
+			}
+		function do_this(object) {
+			reset_old_beads(object)
+			shift_object(object, "down")
+			draw_tetris_object(shifted_coordinates)
+		}
+		do_this(pyramid_map)
+	}, 25)
+}
+run_tetris()
 	// plot out the shape
-	Draw_Object(possible_falling_pieces.pyramid)
+	// Draw_Object(possible_falling_pieces.pyramid)
 
 	// write an Timer.every function to make sure it drops every second
 	// write the Engine.on("keydown") functions to make it "shift the squares by one piece"
@@ -938,12 +976,11 @@ function run_tetris() {
 	// write the destroy function (upon racking up the right colors)
 	// make sure everything "above it" shifts down
 	// rack up points 
-	
-	}
+	// }
 
 
 
-run_tetris()
+// run_tetris()
 
 
 
@@ -968,7 +1005,6 @@ run_tetris()
 // 	var index = randomIntFromInterval(0, bot_colors.length)
 // 	// build_bots(bot_colors[index])
 // 	build_bots(getRandomColor())
-// }
 
 
 
