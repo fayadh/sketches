@@ -26,10 +26,10 @@ var spacing = 2;
 		  return color;
 		}
 //RANDOM INTEGER
-function randomIntFromInterval(min,max)
-{
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
+	function randomIntFromInterval(min,max)
+	{
+	    return Math.floor(Math.random()*(max-min+1)+min);
+	}
 
 var rows = 20;
 var columns = 20;
@@ -63,7 +63,6 @@ var columns = 20;
 	var botgImageStateModifier = new StateModifier ({
 				
 	});
-
 //content container
 	var contentSurface = new Surface({ 
 		size: [640, ],
@@ -77,7 +76,6 @@ var columns = 20;
 	});
 
 	mainContext.add(contentStateModifier).add(contentSurface);
-
 //MATRIX
 	for(j = 0; j < rows; j++) { 
 		//ROW
@@ -117,12 +115,10 @@ var columns = 20;
 		};
 		beadCollector.push(beadCollectorColumn);
 	};
-
 //RANDOM EMPTY CELLS
-
 //STARTING POINT
-startY = 1;
-startX = 1;
+	startY = 1;
+	startX = 1;
 
 var travelPath = []
 
@@ -132,164 +128,161 @@ var travelPath = []
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-	Engine.on('keydown', function(e) {
-		console.log(e)
-		if (e.which === 39) {
-			//next cell
-			var nextCell = startX + "," + (startY + 1)
+var g_keyboard_array = [37, 38, 39, 40] //respectively: left, up, right, down
+	// Engine.on('keydown', function(e) {
+	// 	console.log(e)
+	// 	if (e.which === 39) {
+	// 		//next cell
+	// 		var nextCell = startX + "," + (startY + 1)
 
-			//where am I? 
-			console.log("current cell is: " + startX + "," + startY)
-			console.log("next cell is: " + nextCell)
+	// 		//where am I? 
+	// 		console.log("current cell is: " + startX + "," + startY)
+	// 		console.log("next cell is: " + nextCell)
 			
-			//test if the next move hits a block
-			var condition = "false"
-			for(var i = 0; i < blockCollection.length; i++) {
-				if (blockCollection[i] == nextCell) {
-					condition = "true";
-					console.log(condition)
-				}
-			}
+	// 		//test if the next move hits a block
+	// 		var condition = "false"
+	// 		for(var i = 0; i < blockCollection.length; i++) {
+	// 			if (blockCollection[i] == nextCell) {
+	// 				condition = "true";
+	// 				console.log(condition)
+	// 			}
+	// 		}
 
-			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-			if(condition == "false") { 
-				//store old coordinate
-				travelPath.push([startX, startY])
-				//Reset previous bead
-				beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "yellow",
-			  	backgroundImage: "none"
-			  });
-				//RIGHT
-				startY++;
-			  beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "blue",
-			  	boxShadow: "0px 0px 10px yellow",
-			  	backgroundImage: "url('images/bot.gif')",
-			  	backgroundSize: "100%"
-				})
-			} else {
-				console.log("cant")
-			}
+	// 		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+	// 		if(condition == "false") { 
+	// 			//store old coordinate
+	// 			travelPath.push([startX, startY])
+	// 			//Reset previous bead
+	// 			beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "yellow",
+	// 		  	backgroundImage: "none"
+	// 		  });
+	// 			//RIGHT
+	// 			startY++;
+	// 		  beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "blue",
+	// 		  	boxShadow: "0px 0px 10px yellow",
+	// 		  	backgroundImage: "url('images/bot.gif')",
+	// 		  	backgroundSize: "100%"
+	// 			})
+	// 		} else {
+	// 			console.log("cant")
+	// 		}
 
-		} else if(e.which === 38) {
-			//next cell
-			var nextCell = (startX - 1) + "," + startY
+	// 	} else if(e.which === 38) {
+	// 		//next cell
+	// 		var nextCell = (startX - 1) + "," + startY
 
-			//where am I?
-			console.log("current cell is: " + startX + "," + startY)
-			console.log("next cell is: " + nextCell)
+	// 		//where am I?
+	// 		console.log("current cell is: " + startX + "," + startY)
+	// 		console.log("next cell is: " + nextCell)
 
-			//test if the next move hits a block
-			var condition = "false"
-			for(var i = 0; i < blockCollection.length; i++) {
-				if (blockCollection[i] == nextCell) {
-					condition = "true";
-					console.log(condition)
-				}
-			}
+	// 		//test if the next move hits a block
+	// 		var condition = "false"
+	// 		for(var i = 0; i < blockCollection.length; i++) {
+	// 			if (blockCollection[i] == nextCell) {
+	// 				condition = "true";
+	// 				console.log(condition)
+	// 			}
+	// 		}
 
-			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-			if(condition == "false") { 
-				//store old coordinate
-				travelPath.push([startX, startY])
-				//Reset previous bead
-				beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "yellow",
-			  	backgroundImage: "none"
-			  });
-				//UP
-				startX = startX - 1
-				beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "blue",
-			  	boxShadow: "0px 0px 10px yellow",
-			  	backgroundImage: "url('images/bot.gif')",
-			  	backgroundSize: "100%"
-				})
-			}
-		} else if(e.which === 40) {
-			//next cell
-			var nextCell = (startX + 1) + "," + startY
+	// 		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+	// 		if(condition == "false") { 
+	// 			//store old coordinate
+	// 			travelPath.push([startX, startY])
+	// 			//Reset previous bead
+	// 			beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "yellow",
+	// 		  	backgroundImage: "none"
+	// 		  });
+	// 			//UP
+	// 			startX = startX - 1
+	// 			beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "blue",
+	// 		  	boxShadow: "0px 0px 10px yellow",
+	// 		  	backgroundImage: "url('images/bot.gif')",
+	// 		  	backgroundSize: "100%"
+	// 			})
+	// 		}
+	// 	} else if(e.which === 40) {
+	// 		//next cell
+	// 		var nextCell = (startX + 1) + "," + startY
 
-			//where am I?
-			console.log("current cell is: " + startX + "," + startY)
-			console.log("next cell is: " + nextCell)
+	// 		//where am I?
+	// 		console.log("current cell is: " + startX + "," + startY)
+	// 		console.log("next cell is: " + nextCell)
 
-			//test if the next move hits a block
-			var condition = "false"
-			for(var i = 0; i < blockCollection.length; i++) {
-				if (blockCollection[i] == nextCell) {
-					condition = "true";
-					console.log(condition)
-				}
-			}
+	// 		//test if the next move hits a block
+	// 		var condition = "false"
+	// 		for(var i = 0; i < blockCollection.length; i++) {
+	// 			if (blockCollection[i] == nextCell) {
+	// 				condition = "true";
+	// 				console.log(condition)
+	// 			}
+	// 		}
 
-			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-			if(condition == "false") {
-				//store old coordinate
-				travelPath.push([startX, startY])
+	// 		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+	// 		if(condition == "false") {
+	// 			//store old coordinate
+	// 			travelPath.push([startX, startY])
 
-				//Reset previous bead
-				beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "yellow",
-			  	backgroundImage: "none"
-			  });
-				//DOWN
-				startX++;
-				beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "blue",
-			  	boxShadow: "0px 0px 10px yellow",
-			  	backgroundImage: "url('images/bot.gif')",
-			  	backgroundSize: "100%"
-				})
-			} else {
-				console.log("cant")
-			}
-		}
-	});
+	// 			//Reset previous bead
+	// 			beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "yellow",
+	// 		  	backgroundImage: "none"
+	// 		  });
+	// 			//DOWN
+	// 			startX++;
+	// 			beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "blue",
+	// 		  	boxShadow: "0px 0px 10px yellow",
+	// 		  	backgroundImage: "url('images/bot.gif')",
+	// 		  	backgroundSize: "100%"
+	// 			})
+	// 		} else {
+	// 			console.log("cant")
+	// 		}
+	// 	}
+	// });
 
-	Engine.on('keydown', function(e) {
-		 if(e.which === 37) {
-			//next cell
-			var nextCell = startX + "," + (startY - 1)
+	// Engine.on('keydown', function(e) {
+	// 	 if(e.which === 37) {
+	// 		//next cell
+	// 		var nextCell = startX + "," + (startY - 1)
 
-			//where am I? 
-			console.log("current cell is: " + startX + "," + startY)
-			console.log("next cell is: " + nextCell)
+	// 		//where am I? 
+	// 		console.log("current cell is: " + startX + "," + startY)
+	// 		console.log("next cell is: " + nextCell)
 			
-			//test if the next move hits a block
-			var condition = "false"
-			for(var i = 0; i < blockCollection.length; i++) {
-				if (blockCollection[i] == nextCell) {
-					condition = "true";
-					console.log(condition)
-				}
-			}
+	// 		//test if the next move hits a block
+	// 		var condition = "false"
+	// 		for(var i = 0; i < blockCollection.length; i++) {
+	// 			if (blockCollection[i] == nextCell) {
+	// 				condition = "true";
+	// 				console.log(condition)
+	// 			}
+	// 		}
 
-			//if it hits a block (i.e: condition is true), then don't run, and say you can't.
-			if(condition == "false") { 
-				//store old coordinate
-				travelPath.push([startX, startY])
-				//Reset previous bead
-				beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "yellow",
-			  	backgroundImage: "none"
-			  });
-				//LEFT
-				startY = startY - 1
-				beadCollector[startX][startY].setProperties({
-			  	backgroundColor: "blue",
-			  	boxShadow: "0px 0px 10px yellow",
-			  	backgroundImage: "url('images/bot.gif')",
-			  	backgroundSize: "100%" 
-				})
-			}
-		}
-	});
-
-
-
-
+	// 		//if it hits a block (i.e: condition is true), then don't run, and say you can't.
+	// 		if(condition == "false") { 
+	// 			//store old coordinate
+	// 			travelPath.push([startX, startY])
+	// 			//Reset previous bead
+	// 			beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "yellow",
+	// 		  	backgroundImage: "none"
+	// 		  });
+	// 			//LEFT
+	// 			startY = startY - 1
+	// 			beadCollector[startX][startY].setProperties({
+	// 		  	backgroundColor: "blue",
+	// 		  	boxShadow: "0px 0px 10px yellow",
+	// 		  	backgroundImage: "url('images/bot.gif')",
+	// 		  	backgroundSize: "100%" 
+	// 			})
+	// 		}
+	// 	}
+	// });
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -920,12 +913,98 @@ function run_tetris() {
 					"north_to_east" : +1,
 					}
 			}
+	var l_map = {
+				"initial_coordinates": [[0,0], [1,0], [1,1], [1,2]],
+				"relationships" : 
+					{"east_to_south" : -1, 
+					"south_to_west" : -1,
+					"west_to_north" : +1,
+					"north_to_east" : +1,
+					}
+			}
+	var z_map = {
+			"initial_coordinates": [[0, 1], [0, 2] ,[1,0], [1,1]],
+			"relationships" : 
+				{"east_to_south" : -1, 
+				"south_to_west" : -1,
+				"west_to_north" : +1,
+				"north_to_east" : +1,
+				}
+		}
+	var square_map = {
+			"initial_coordinates": [[0, 0], [0, 1] ,[1,0], [1,1]],
+			"relationships" : 
+				{"east_to_south" : -1, 
+				"south_to_west" : -1,
+				"west_to_north" : +1,
+				"north_to_east" : +1,
+				}
+		}
+
+	var maps = [pyramid_map, l_map, z_map, square_map]
+	rand_i = randomIntFromInterval(0, maps.length - 1)
+
+	Engine.on("keydown", function(e) {
+			for (var i = 0; i < g_keyboard_array.length; i++) {
+				
+				e.which === 37? key_mode = "left": null
+				e.which === 38? null: null	
+				e.which === 39? key_mode = "right": null	
+				e.which === 40? key_mode = "down": null	
+
+				//reset old coordinations
+				function reset_old_beads(object) {
+					for (var i = 0; i < object.initial_coordinates.length; i++) {
+						c0 = object.initial_coordinates[i][0]
+						c1 = object.initial_coordinates[i][1]	
+						beadCollector[c0][c1].setProperties({
+							backgroundColor: getRandomColor()
+						})
+					};
+				}
+				var shifted_coordinates = []
+				function shift_object(object, direction) {
+					var shift = 0;	
+					for (var i = 0; i < object.initial_coordinates.length; i++) {
+						var x = object.initial_coordinates[i][0]
+						var y = object.initial_coordinates[i][1]
+						//update coordinates
+						if(direction == "down") { shift = [x + 1, y]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x + 1, y]; }
+						if(direction == "right") { shift = [x, y + 1]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x, y + 1];  }
+						if(direction == "left") { shift = [x, y - 1]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x, y - 1]; }
+					};
+				}
+
+				function draw_tetris_object(object) {
+						for(i = 0; i < object.length; i++) {
+							// draw blocks
+							c0 = object[i][0]
+							c1 = object[i][1]
+							beadCollector[c0][c1].setProperties({
+								backgroundColor: "yellow"
+							})
+							blockCollection.push([c0, c1])
+						}
+					}
+
+				function do_this(object, mode) {
+					reset_old_beads(object)
+					shift_object(object, mode)
+					draw_tetris_object(shifted_coordinates)
+					console.log(shifted_coordinates)
+				}
+
+				// random_do_this_index
+				do_this(maps[rand_i], key_mode)
+			};
+		})
 
 	//REPEATED ALWAYS GOING DOWN
 	/////////////////////////////////////////////////////////
+	
 	Timer.every(function(){
 		//reset old coordinations
-		function reset_old_beads (object) {
+		function reset_old_beads(object) {
 			for (var i = 0; i < object.initial_coordinates.length; i++) {
 				c0 = object.initial_coordinates[i][0]
 				c1 = object.initial_coordinates[i][1]	
@@ -934,7 +1013,7 @@ function run_tetris() {
 				})
 			};
 		}
-		var shifted_coordinates = [];
+		var shifted_coordinates = []
 		function shift_object(object, direction) {
 			var shift = 0;	
 			for (var i = 0; i < object.initial_coordinates.length; i++) {
@@ -946,6 +1025,7 @@ function run_tetris() {
 				if(direction == "left") { shift = [x, y - 1]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x, y - 1]; }
 			};
 		}
+
 		function draw_tetris_object(object) {
 				for(i = 0; i < object.length; i++) {
 					// draw blocks
@@ -957,15 +1037,21 @@ function run_tetris() {
 					blockCollection.push([c0, c1])
 				}
 			}
-		function do_this(object) {
+
+		function do_this(object, mode) {
 			reset_old_beads(object)
-			shift_object(object, "down")
+			shift_object(object, mode)
 			draw_tetris_object(shifted_coordinates)
+			console.log(shifted_coordinates)
 		}
-		do_this(pyramid_map)
+
+		// random_do_this_index
+		do_this(maps[rand_i], "down")
 	}, 25)
 }
-run_tetris()
+
+
+// run_tetris()
 	// plot out the shape
 	// Draw_Object(possible_falling_pieces.pyramid)
 
@@ -980,7 +1066,7 @@ run_tetris()
 
 
 
-// run_tetris()
+run_tetris()
 
 
 
@@ -992,12 +1078,13 @@ run_tetris()
 
 // Draw_Object(Border1);
 
-// // write a function to bring the animation to the center
+// // // write a function to bring the animation to the center
 // Draw_Object(A, [5,7])
+// Draw_Object(Border1)
 // createRandomFoods();
 // createRandomBlocks(100);
 
-// //build X number of bots
+// // //build X number of bots
 // var number_of_bots = 10;
 // for(i = 0; i <= number_of_bots; i++) {
 // 	//add more colors to your pleasing. Otherwise, set build_bots argument to randomColor()
@@ -1005,6 +1092,7 @@ run_tetris()
 // 	var index = randomIntFromInterval(0, bot_colors.length)
 // 	// build_bots(bot_colors[index])
 // 	build_bots(getRandomColor())
+// }
 
 
 
