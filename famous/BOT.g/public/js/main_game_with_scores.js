@@ -943,22 +943,24 @@ function run_tetris() {
 
 	var maps = [pyramid_map, l_map, z_map, square_map]
 	rand_i = randomIntFromInterval(0, maps.length - 1)
+	block_start = [1, 1]
 
 	Engine.on("keydown", function(e) {
 			for (var i = 0; i < g_keyboard_array.length; i++) {
-				
+			
 				e.which === 37? key_mode = "left": null
-				e.which === 38? null: null	
+				e.which === 38? null: null	//disable up option
 				e.which === 39? key_mode = "right": null	
 				e.which === 40? key_mode = "down": null	
 
 				//reset old coordinations
-				function reset_old_beads(object) {
+				function initial_settings(object) {
 					for (var i = 0; i < object.initial_coordinates.length; i++) {
-						c0 = object.initial_coordinates[i][0]
-						c1 = object.initial_coordinates[i][1]	
+						c0 = object.initial_coordinates[i][0] + block_start[0]
+						c1 = object.initial_coordinates[i][1]	+ block_start[1]
 						beadCollector[c0][c1].setProperties({
-							backgroundColor: getRandomColor()
+							backgroundColor: getRandomColor(),
+							borderRadius: "100%"
 						})
 					};
 				}
@@ -966,8 +968,8 @@ function run_tetris() {
 				function shift_object(object, direction) {
 					var shift = 0;	
 					for (var i = 0; i < object.initial_coordinates.length; i++) {
-						var x = object.initial_coordinates[i][0]
-						var y = object.initial_coordinates[i][1]
+						var x = object.initial_coordinates[i][0] 
+						var y = object.initial_coordinates[i][1] 
 						//update coordinates
 						if(direction == "down") { shift = [x + 1, y]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x + 1, y]; }
 						if(direction == "right") { shift = [x, y + 1]; shifted_coordinates.push(shift) ; object.initial_coordinates[i] = [x, y + 1];  }
@@ -978,20 +980,27 @@ function run_tetris() {
 				function draw_tetris_object(object) {
 						for(i = 0; i < object.length; i++) {
 							// draw blocks
-							c0 = object[i][0]
-							c1 = object[i][1]
+							c0 = object[i][0] + block_start[0]
+							c1 = object[i][1] + block_start[1]
 							beadCollector[c0][c1].setProperties({
-								backgroundColor: "yellow"
+								backgroundColor: "yellow",
+								borderRadius: "0%",
+								boxShadow: "0px 0px 10px red",
 							})
+							//remove old blocks from collection
+							blockCollection.pop()
+
+							//add to collection
 							blockCollection.push([c0, c1])
+
 						}
 					}
 
 				function do_this(object, mode) {
-					reset_old_beads(object)
+					initial_settings(object)
 					shift_object(object, mode)
 					draw_tetris_object(shifted_coordinates)
-					console.log(shifted_coordinates)
+					// console.log(shifted_coordinates)
 				}
 
 				// random_do_this_index
@@ -1004,12 +1013,13 @@ function run_tetris() {
 	
 	Timer.every(function(){
 		//reset old coordinations
-		function reset_old_beads(object) {
+		function initial_settings(object) {
 			for (var i = 0; i < object.initial_coordinates.length; i++) {
-				c0 = object.initial_coordinates[i][0]
-				c1 = object.initial_coordinates[i][1]	
+				c0 = object.initial_coordinates[i][0] + block_start[0]
+				c1 = object.initial_coordinates[i][1]	+ block_start[1]
 				beadCollector[c0][c1].setProperties({
-					backgroundColor: getRandomColor()
+					backgroundColor: getRandomColor(),
+					borderRadius: "100%"
 				})
 			};
 		}
@@ -1029,20 +1039,30 @@ function run_tetris() {
 		function draw_tetris_object(object) {
 				for(i = 0; i < object.length; i++) {
 					// draw blocks
-					c0 = object[i][0]
-					c1 = object[i][1]
+					c0 = object[i][0] + block_start[0]
+					c1 = object[i][1] + block_start[1]
 					beadCollector[c0][c1].setProperties({
-						backgroundColor: "yellow"
+						backgroundColor: "yellow",
+						borderRadius: "0%",
+						boxShadow: "0px 0px 10px red",
 					})
+
+					//remove old blocks from collection
+					blockCollection.pop()
+
+					//add to collection
 					blockCollection.push([c0, c1])
+						console.log(blockCollection.length)
+
+					// console.log(blockCollection.length)
 				}
 			}
 
-		function do_this(object, mode) {
-			reset_old_beads(object)
-			shift_object(object, mode)
+		function do_this(object, mode, starting_point) {
+			initial_settings(object)
+			shift_object(object, mode, starting_point)
 			draw_tetris_object(shifted_coordinates)
-			console.log(shifted_coordinates)
+			// console.log(shifted_coordinates)
 		}
 
 		// random_do_this_index
@@ -1064,8 +1084,6 @@ function run_tetris() {
 	// rack up points 
 	// }
 
-
-
 run_tetris()
 
 
@@ -1076,7 +1094,7 @@ run_tetris()
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-// Draw_Object(Border1);
+Draw_Object (Border1);
 
 // // // write a function to bring the animation to the center
 // Draw_Object(A, [5,7])
