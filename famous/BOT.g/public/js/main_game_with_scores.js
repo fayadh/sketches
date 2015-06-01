@@ -129,6 +129,8 @@ var travelPath = []
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 var g_keyboard_array = [37, 38, 39, 40] //respectively: left, up, right, down
+
+function user_bot() {
 Engine.on('keydown', function(e) {
 	console.log(e)
 	if (e.which === 39) {
@@ -283,6 +285,7 @@ Engine.on('keydown', function(e) {
 		}
 	}
 });
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -773,6 +776,8 @@ var borderCollection = [];
 		]	
 
 
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // AUTO BOT
@@ -865,12 +870,19 @@ function build_bots(color_trail) {
 				bot_startX = x[0];
 				bot_startY = x[1];
 
+				
+
 				//if the bot hits the user, game is temrinated.
 				// if(user_current_location[0] == bot_startX && user_current_location[1] == bot_startY) {
 				// 	console.log("HIT")
 				// 	//turn game off
 				// 	rungame = 0;
 				// 	window.alert("Game Over!")
+
+				// 	x = randomIntFromInterval(0, scale_int.length - 1)
+				// 	choice = scale_int[x]
+				// 	sin_wave.frequency.value = note(choice)
+				// 	bass.frequency.value = note(choice)
 				// }
 			}
 		}
@@ -942,7 +954,10 @@ function run_tetris() {
 		}
 
 	var maps = [pyramid_map, l_map, z_map, square_map]
-	rand_i = randomIntFromInterval(0, maps.length - 1)
+
+	var current_map;
+
+	//the initial positioning; acts like a predetermined shift. 
 	block_start = [1, 1]
 
 	Engine.on("keydown", function(e) {
@@ -973,7 +988,10 @@ function run_tetris() {
 						//update coordinates
 						if(direction == "down") { 
 							//our main concern is here: 
-							//
+							//awareness function 
+							//look around you and tell me what you see.
+							console.log(x, y)
+
 
 							shift = [x + 1, y]; 
 							shifted_coordinates.push(shift) ; 
@@ -1018,57 +1036,61 @@ function run_tetris() {
 	//REPEATED ALWAYS GOING DOWN
 	/////////////////////////////////////////////////////////
 	
+	rand_i = randomIntFromInterval(0, maps.length - 1)
+	console.log(blockCollection.length)
+
 	Timer.every(function(){
-		//reset old coordinations
-		function initial_settings(object) {
-			for (var i = 0; i < object.initial_coordinates.length; i++) {
-				//goes through each coordinate of the tetris object from its map and then shifts it via block start
-				c0 = object.initial_coordinates[i][0] + block_start[0]
-				c1 = object.initial_coordinates[i][1]	+ block_start[1]
-				//resets the appropriate bead. 
-				beadCollector[c0][c1].setProperties({
-					backgroundColor: getRandomColor(),
-					borderRadius: "100%"
-				})
-			};
-		}
-
-		//setup a collection to pass to draw_tetris_object with all shifted coordinates
-		var shifted_coordinates = []
-		function setup_object(object, direction) {
-
-			var shift;	
-			for (var i = 0; i < object.initial_coordinates.length; i++) {
-				var x = object.initial_coordinates[i][0]
-				var y = object.initial_coordinates[i][1]
-				//update coordinates
-
-				//our main concern is here: 
-				shift = [x + 1, y]; 
-				shifted_coordinates.push(shift) ; 
-				object.initial_coordinates[i] = [x + 1, y]; 
-			};
-		}
-
-		function draw_tetris_object(object) {
-				for(i = 0; i < object.length; i++) {
-					// draw blocks
-					c0 = object[i][0] + block_start[0]
-					c1 = object[i][1] + block_start[1]
+		function run() {
+			//reset old coordinations
+			function initial_settings(object) {
+				for (var i = 0; i < object.initial_coordinates.length; i++) {
+					//goes through each coordinate of the tetris object from its map and then shifts it via block start
+					c0 = object.initial_coordinates[i][0] + block_start[0]
+					c1 = object.initial_coordinates[i][1]	+ block_start[1]
+					//resets the appropriate bead. 
 					beadCollector[c0][c1].setProperties({
-						backgroundColor: "yellow",
-						borderRadius: "0%",
-						boxShadow: "0px 0px 10px red",
+						backgroundColor: getRandomColor(),
+						borderRadius: "100%"
 					})
+				};
+			}
 
-					//remove old blocks from collection
-					blockCollection.pop()
+			//setup a collection to pass to draw_tetris_object with all shifted coordinates
+			var shifted_coordinates = []
 
-					//add to collection
-					blockCollection.push([c0, c1])
-						console.log(blockCollection.length)
+			function setup_object(object, direction) {
+				var shift;	
+				for (var i = 0; i < object.initial_coordinates.length; i++) {
+					var x = object.initial_coordinates[i][0]
+					var y = object.initial_coordinates[i][1]
+					//update coordinates
 
-					// console.log(blockCollection.length)
+					//our main concern is here: 
+					shift = [x + 1, y]; 
+					shifted_coordinates.push(shift) ; 
+					object.initial_coordinates[i] = [x + 1, y];
+				};
+			}
+
+			function draw_tetris_object(object) {
+					for(i = 0; i < object.length; i++) {
+						// draw blocks
+						c0 = object[i][0] + block_start[0]
+						c1 = object[i][1] + block_start[1]
+						beadCollector[c0][c1].setProperties({
+							backgroundColor: "yellow",
+							borderRadius: "0%",
+							boxShadow: "0px 0px 10px red",
+						})
+
+						//remove old blocks from collection
+						blockCollection.pop()
+
+						//add to collection
+						blockCollection.push([c0, c1])
+							console.log(blockCollection.length)
+
+						// console.log(blockCollection.length)
 				}
 			}
 
@@ -1079,8 +1101,14 @@ function run_tetris() {
 			// console.log(shifted_coordinates)
 		}
 
+		function change_map() {
+		}
+
 		// random_do_this_index
 		do_this(maps[rand_i], "down")
+
+		}
+		// run()
 	}, 25)
 }
 
@@ -1108,74 +1136,23 @@ function run_tetris() {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 Draw_Object (Border1);
-// run_tetris()
+run_tetris()
+user_bot()
 
 // // // write a function to bring the animation to the center
-Draw_Object(F, [5,7])
+// Draw_Object(F, [5,7])
 // Draw_Object(Border1)
 createRandomFoods();
 // createRandomBlocks(50);
 
 // //build X number of bots
-var number_of_bots = 20;
-for(i = 0; i <= number_of_bots; i++) {
-	//add more colors to your pleasing. Otherwise, set build_bots argument to randomColor()
-	var bot_colors = ["black", "white", "green"]
-	var index = randomIntFromInterval(0, bot_colors.length)
-	// build_bots(bot_colors[index])
-	build_bots(getRandomColor())
-}
+// var number_of_bots = 20;
+// for(i = 0; i <= number_of_bots; i++) {
+// 	//add more colors to your pleasing. Otherwise, set build_bots argument to randomColor()
+// 	var bot_colors = ["black", "white", "green"]
+// 	var index = randomIntFromInterval(0, bot_colors.length)
+// 	// build_bots(bot_colors[index])
+// 	build_bots(getRandomColor())
+// }
 
 
-
-//// AUDIO 
-
-		var context = new AudioContext();
-
-		//scale
-			frequency = [392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46]
-			frequency_bass = [392.00, 349.23, 329.63, 293.66, 261.63, 246.94, 220]
-
-		//main melody
-			var sin_wave = context.createOscillator(); 
-			sin_wave.type = 'square'
-			//initial frequency = silence 
-			sin_wave.frequency.value = 55000
-			sin_wave.connect(context.destination)
-			sin_wave.start()
-
-		//bass line
-			var bass = context.createOscillator(); 
-			bass.type = 'sawtooth'
-			//initial frequency = silence 
-			bass.frequency.value = frequency_bass[0]
-			bass.connect(context.destination)
-			bass.start()
-
-		// note function
-		function note(n) {
-			//fn = f0 * (a)^n
-			//base note
-			f0 = 440;
-			//twelfth root of 2
-			a = Math.pow(2, 1/12)
-			fn = f0 * Math.pow(a, n)
-			return fn
-		}
-		
-		//players
-		Timer.every(function() { 
-			x = randomIntFromInterval(0, 10)
-			sin_wave.frequency.value = note(x)
-		}, 50)
-
-		Timer.every(function() { 
-			x = randomIntFromInterval(0, 10)
-			bass.frequency.value = note(x)
-		}, 200)
-		
-
-		//high frequency
-		//low frequency
-		//sweep 
-		//consistent change
