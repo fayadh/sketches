@@ -1,0 +1,62 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: pink;
+}
+body {
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-perspective: 0;
+    perspective: none;
+    overflow: hidden;
+}
+
+p {
+    font-family: 'Lato';
+    color: black;
+    font-size: 2em;
+    text-align: center;
+    line-height: 1.618033988749895em;
+    color: rgba(233, 43, 100, 0.6);
+    padding: 1.618033988749895em;
+    padding-bottom: 0.1618033988749895em;
+    margin-bottom: 0px;
+}
+
+#name {
+    font-family: 'Lato';
+    font-size: 1.72em;
+    text-align: center;
+    line-height: 1.618033988749895em;
+    color: black;
+    padding: 0em;
+    margin: 0px;
+}
+
+#background { 
+	background-color: yellow; 
+    opacity: 0.4;
+    border-radius: 100%;
+    box-shadow: 10px 0px 50px orange;
+}
+
+#light {
+    background-color: transparent; 
+    opacity: 0.4;
+    border-radius: 100%;
+    box-shadow: 10px 0px 50px black;
+    color: white;
+    font-size: 3em;
+    font-family: 'Noto Naskh Arabic'
+}
+
+#center-dot {
+    background-color: transparent;
+    font-size: 3em;
+    border-radius: 100%;
+}
