@@ -11,9 +11,12 @@ var node = main.addChild()
 var light = node.addChild()
 var center = node.addChild()
 
+var x = "/==||========>"
+var many_faced_g = "/==||==(:}]>"
 new DOMElement(node, { tagName: "div" })
     .setAttribute("id", "background" )
-    .setContent("/==||========>")
+    .setContent()
+
 
 new DOMElement(node, { tagName: "div" })
     .setAttribute("id", "center-dot" )
@@ -51,7 +54,7 @@ center
 
 var spinner = node.addComponent({
     onUpdate: function(time) {
-        node.setRotation(time / 500, time / 1000, time / 250)
+        node.setRotation(0, time / 100, time / 10)
         node.requestUpdateOnNextTick(spinner); 
     }
 }) 
@@ -72,3 +75,4 @@ light.requestUpdate(light_spinner)
 
 // Boilerplate code to make your life easier
 FamousEngine.init();
+

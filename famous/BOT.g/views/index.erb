@@ -13,6 +13,7 @@
   <script type="text/javascript" src="http://code.famo.us/lib/requestAnimationFrame.js"></script>
   <link rel="stylesheet" type="text/css" href="http://code.famo.us/famous/0.3/famous.css" />
   <script type="text/javascript" src="http://code.famo.us/famous/0.3/famous-global.min.js"></script>
+
   <link rel="stylesheet" href="stylesheets/app.css">
   <link rel="stylesheet" href="stylesheets/animate.css">
 
@@ -25,80 +26,7 @@
 	<script type="text/javascript" src="js/others.js"></script>
   <script id="mainjs" src="js/main_game_with_scores.js"></script>
 	<script src="js/audio.js"></script>
-
-<div id="Menu" style="-webkit-transform: translateX(800px); padding: 1em;">
-	<h1>Welcome, to my playground.</h1>
-	<p id="name"> Fayadh al-Mosawi, Web Developer. </p><br>
-	<span id="ibashDescription"> this is the <em>ibash</em> project, an experimental, dynamic, <br> personal space  concept built for the web. <br><br> <hr> <span id="clickIbash"> Click on ibash to proceed. <br> or you can play BOT.g on the left. <br><br>
-	P.S. This is <em> NOT </em> meant to be a "user-friendly" and "obvious" website. <br> The point is to induce mystery, and maximize curiosity.
-	<br><br>
-
-	<!-- <em><strong>SCORE</strong><em>: 
-	
-	<div id="score-form">
-		<form id="form">
-		</form>
-	</div> -->
-	
-	<script>
-		// Source data
-		var person = { 
-		  name: "Ann", 
-		  metrics:{ age:"25" } 
-		};
-		 
-		// Manifest
-		var manifest = {
-		  
-		  //Default data  
-		  data: { name:"", metrics:{ age:"" }},
-		  
-		  // Init function  
-		  init: function ($node, runtime) {
-		    $node.html(
-		      '<h4>Simplest form</h4>'+
-		      '<div><input id="name" type="text" placeholder="Name" /></div>' +
-		      '<div><input id="age" type="number" placeholder="Age"/></div>'
-		    ).css("display", "block-inline");
-		  },
-		  
-		  // Bindings
-		  ui: {
-		    "#name": { bind: "name" },
-		    "#age" : { bind: "metrics.age" }
-		  }
-		};
-		 
-		// Init $.my over DOM node
-		$("#form").my( manifest, person );
-	</script>
-
-	</span></span>
-
-
-	<br><br><br><br> <br><br><br><br>
-	<div class="console">
-	<span id="cd2"> 
-		<img id="bashImage" src="images/ibash_title2.png" height="80%" style="position: absolute;" class=""/> 
-	</span>
-	<span id="cd1"> 
-		<em><strong> ~ibash </strong> </em> 
-	</span>
-
-	<form method="post" action="/">	
-		<input id="cd1" name="command" placeholder="Hi! :) Confused? type: open world"></input><br>
-		<input id="hiddenButton" type="submit" name="Submit" style="display: none;"></button>
-	</form>
-
-	<span id="cdexample"><em> ex: open world, botg. </em></span>
-	<hr>
-
-	<div id="subContentContainer" style="overflow: auto;"> 
-		<table>
-
-		</table>
-	</div>
-</div>
+	<script src="js/content.js"></script>
 
 </body>
 </html>

@@ -46,7 +46,7 @@ p {
 }
 
 #light {
-    background-color: transparent; 
+    background-color: yellow; 
     opacity: 0.4;
     border-radius: 100%;
     box-shadow: 10px 0px 50px black;
