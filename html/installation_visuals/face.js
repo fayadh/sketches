@@ -8,19 +8,18 @@ var f = function(f) {
 
 		//set defaults
 		!mount_point? mount_point = [0,0]: null;
-		// !bh? bh = 50: null;
 
 		bh = 50
-		diff = 30
+		divider = 30
 
 		mx = mount_point[0]
 		my = mount_point[1]
 
 		//all the points of the eye
-		e1 = [ew, (0 + eh)/2]
-		e2 = [(ew/2), 0]
-		e3 = [0, (0 + eh)/2]
-		e4 = [(ew/2), eh]
+		this.e1 = [ew, (0 + eh)/2]
+		this.e2 = [(ew/2), 0]
+		this.e3 = [0, (0 + eh)/2]
+		this.e4 = [(ew/2), eh]
 
 		//all brow points
 		b1 = [0, bh]
@@ -28,34 +27,41 @@ var f = function(f) {
 		b3 = [ew, bh]
 
 		this.display = function() {
+			sp = (bh/2) * (f.mouseY/docH)
+
+			console.log(sp)
 			//brow
 			f.strokeWeight(4)
 			f.stroke(255)
-			f.line(b1[0] + mx, b1[1] + my, b2[0] + mx, b2[1] + my)
-			f.line(b2[0] + mx, b2[1] + my, b3[0] + mx, b3[1] + my)
+
+			f.line(
+				b1[0] + mx, 
+				b1[1] + my, 
+				b2[0] + mx, 
+				b2[1] + my + sp
+				)
+			f.line(
+				b2[0] + mx, 
+				b2[1] + my + sp, 
+				b3[0] + mx, 
+				b3[1] + my
+				)
 			//eye
 			f.noStroke()
 			f.quad(
-				e1[0] + mx, 
-				e1[1] + my + diff, 
-				e2[0] + mx, 
-				e2[1] + my + diff, 
-				e3[0] + mx, 
-				e3[1] + my + diff, 
-				e4[0] + mx, 
-				e4[1] + my + diff
-			)
+				this.e1[0] + mx, 
+				this.e1[1] + my + divider, 
+				this.e2[0] + mx, 
+				this.e2[1] + my + divider + sp, 
+				this.e3[0] + mx, 
+				this.e3[1] + my + divider, 
+				this.e4[0] + mx, 
+				this.e4[1] + my + divider
+				)
 		}
 
 		// this function just updates the points with each run
 		this.move = function(max, minimum) {
-			//this would work in terms of proportion
-
-			//current position
-			f.mouseY 
-
-			//relative position
-			(f.mouseY/docH) * eye 
 		}
 	}
 
@@ -74,6 +80,8 @@ var f = function(f) {
 		f.clear()
 		left_eye.display()
 		left_eye.move()
+
+		// console.log(f.mouseY/docH * 100)
 
 		// Sound
 		// sound = mic.getLevel() * 1000
