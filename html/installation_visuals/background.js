@@ -7,12 +7,17 @@ var b = function(b) {
 		docH = $(document).height();
 		b.createCanvas(docW, docH);
 		mic = new p5.AudioIn();
+		mic.setSource(0)
 		mic.start();
 		//setup your artwork here 
 		b.background(51);
 	}
 
 	var x = 0
+	var audio = new p5.AudioIn()
+
+	// debugger
+
 	b.draw = function() {
 		for (var i = 0; i < 5; i++) {
 			var sound = mic.getLevel() * 1000
@@ -33,7 +38,7 @@ var b = function(b) {
 		}
 		
 		// console.log(sound)
-		if(sound > 200) { 
+		if(sound > 20) { 
 			b.fill(255, 255, 255)
 			b.ellipse(docW/2, docH/2, 50, 50)
 		}
