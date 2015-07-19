@@ -16,8 +16,6 @@ var b = function(b) {
 	var x = 0
 	var audio = new p5.AudioIn()
 
-	// debugger
-
 	b.draw = function() {
 		for (var i = 0; i < 5; i++) {
 			var sound = mic.getLevel() * 1000
