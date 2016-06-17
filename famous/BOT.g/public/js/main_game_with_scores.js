@@ -1139,11 +1139,11 @@ function run_tetris() {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 Draw_Object (Border1);
-// run_tetris()
+run_tetris()
 user_bot()
 
-// // // write a function to bring the animation to the center
-// Draw_Object(F, [5,7])
+// write a function to bring the animation to the center
+Draw_Object(F, [5,7])
 // Draw_Object(Border1)
 createRandomFoods();
 createRandomBlocks(20);
